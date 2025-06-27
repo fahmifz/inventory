@@ -19,6 +19,8 @@ class TransaksiController extends Controller
         $transaksi = Transaksi::all();
         return view('pages.admin.transaksi.transaksi',compact('barangs','transaksi'));
     }
+
+    
    public function createproses(Request $request)
     {
         //  dd($request->all());
