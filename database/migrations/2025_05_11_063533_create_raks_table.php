@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('rak');
             $table->string('kategori');
+            $table->integer('kapasitas')->default(10);
             $table->timestamps();
         });
     }

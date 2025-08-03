@@ -30,7 +30,9 @@
                                             <th class="text-center">Nama RAK</th>
                                             <th class="text-center">Kategori</th>
                                             <th class="text-center">Kapasitas</th>
+                                            @if (Auth::user()->role === 'admin')
                                             <th class="text-center">Action</th>
+                                            @endif
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -42,7 +44,7 @@
                                         <td class="text-center">
                                             {{ $r->totalTerisi() }} / {{ $r->kapasitas }}
                                         </td>
-
+                                        @if (Auth::user()->role === 'admin')
                                         <td class="text-center">
                                             <a href="{{ route('admin.editrak', $r->id) }}" class="btn btn-warning my-2">
                                                 <i class="fas fa-edit">edit</i>
@@ -55,6 +57,7 @@
                                                 </button>
                                             </form>
                                         </td>
+                                        @endif
                                     </tr>
                                     @endforeach
                                     </tbody>

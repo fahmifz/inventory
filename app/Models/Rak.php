@@ -20,7 +20,7 @@ class Rak extends Model
     }
     public function totalTerisi()
     {
-        return $this->barangs()->sum('kondisi_baik');
+        return $this->barangs()->sum('jumlah_stok');
     }
 
 }

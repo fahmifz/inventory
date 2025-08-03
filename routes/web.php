@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RakController;
+use App\Http\Controllers\RiwayatPemesananController;
 use App\Http\Controllers\TransaksiController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,16 +32,16 @@ Route::middleware('guest')->group(function () {
     Route::get('/register', [AuthController::class, 'register'])->name('admin.register');
     Route::get('/', [AuthController::class, 'login'])->name('admin.login');
 // -----------------------------------------------------------------------------------------------------------//
-Route::group(['middleware' => ['auth','CekAdmin']], function (){
+Route::group(['middleware' => ['auth']], function (){
     // dashboard
-    Route::get('/dashboard', [BarangController::class, 'index'])->name('admin.dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     
 
 
     // barang
     Route::get('/data-barang', [BarangController::class, 'barang'])->name('admin.barang');
-    Route::get('/createbarang', [BarangController::class, 'create'])->name('admin.tambahbarang');
+    Route::get('/createbarang', [BarangController::class, 'createbarang'])->name('admin.tambahbarang');
     Route::post('/createproses/barang', [BarangController::class, 'createproses'])->name('admin.tambahproses');
     Route::get('/edit/barang/{b}', [BarangController::class, 'edit'])->name('admin.edit');
     Route::put('/barang/update/{id}', [BarangController::class, 'update'])->name('admin.update');
@@ -57,6 +59,9 @@ Route::group(['middleware' => ['auth','CekAdmin']], function (){
     Route::post('/createproses/transaksi', [TransaksiController::class, 'createproses'])->name('save.transaksi');
     Route::delete('/transaksi/{id}', [TransaksiController::class, 'hapus'])->name('delete.transaksi');
     Route::get('/admin/transaksi/detail/{id}', [TransaksiController::class, 'showDetail'])->name('transaksi.detail');
+    // Riwayat Pemesanan
+    Route::get('/riwayat-pemesanan', [RiwayatPemesananController::class, 'index'])->name('admin.riwayat');
+    Route::post('/riwayat-pemesanan/update/{id}', [RiwayatPemesananController::class, 'updateStatus'])->name('admin.riwayat.update');
 
     // logout
     Route::post('/logout', [AuthController::class, 'logout'])->name('admin.logout');

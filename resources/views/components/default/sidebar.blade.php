@@ -1,10 +1,10 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="">RPPH Makassar</a>
+            <a href="">TOKO NAYLA</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
-            <a href="">RPPH</a>
+            <a href="">inventory</a>
         </div>
 
         <ul class="sidebar-menu">
@@ -31,9 +31,16 @@
                                 Rak Barang
                             </a>
                         </li>
+                        
                         <li>
                             <a class="nav-link" href="{{route('base.transaksi')}}">
-                                Transaksi
+                                Laporan penjualan
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a class="nav-link" href="{{route('admin.riwayat')}}">
+                                Riwayat pemesanan ulang
                             </a>
                         </li>
                     </ul>
@@ -42,7 +49,7 @@
 
         <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
             <a href="" class="btn btn-danger btn-lg btn-block btn-icon-split">
-                <i class="fas fa-sign-out-alt"></i> Logout
+                <i class="fas fa-sign-out-alt"></i>Logout
             </a>
         </div>
     </aside>

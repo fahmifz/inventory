@@ -13,12 +13,13 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Histori Transaksi</h1>
+            <h1>Laporan penjualan</h1>
         </div>
 
         <div class="section-body">
+            @if (Auth::user()->role === 'staff')
             <a href="{{ route('transaksi') }}" class="btn btn-primary mb-3">TAMBAH TRANSAKSI</a>
-
+            @endif
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
@@ -28,8 +29,10 @@
                                     <th>#</th>
                                     <th>Tanggal Transaksi</th>
                                     <th>Total</th>
+                                    @if (Auth::user()->role === 'admin')
                                     <th>Detail</th>
                                     <th>Action</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -38,6 +41,7 @@
                                     <td class="text-center">{{ $index + 1 }}</td>
                                     <td class="text-center">{{ $t->tanggal_transaksi }}</td>
                                     <td class="text-center">Rp {{ number_format($t->total_harga, 0, ',', '.') }}</td>
+                                    @if (Auth::user()->role === 'admin')
                                     <td class="text-center">
                                         <button type="button" class="btn btn-info btn-sm btn-detail" data-id="{{ $t->id }}">
                                             Detail
@@ -52,6 +56,7 @@
                                             </button>
                                         </form>
                                     </td>
+                                    @endif
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -161,6 +166,30 @@
 
         
     });
+    document.addEventListener('DOMContentLoaded', function () {
+            const forms = document.querySelectorAll('.form-hapus');
+
+            forms.forEach(form => {
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault(); // Cegah form submit langsung
+
+                    Swal.fire({
+                        title: 'Yakin ingin menghapus?',
+                        text: "Data ini akan dihapus permanen!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Ya, hapus!',
+                        cancelButtonText: 'Batal'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit(); // Submit form jika dikonfirmasi
+                        }
+                    });
+                });
+            });
+        });
 </script>
 @endpush
 @endsection

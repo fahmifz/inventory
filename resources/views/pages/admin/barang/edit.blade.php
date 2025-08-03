@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => 'Edit Data Guru RPPH'])
+@extends('layouts.app', ['title' => 'Edit Data Barang'])
 
 @section('content')
 @push('styles')
@@ -9,7 +9,7 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Edit Data Guru</h1>
+            <h1>Edit Data Barang</h1>
         </div>
 
         <div class="section-body">
@@ -18,17 +18,16 @@
                     <form action="{{ route('admin.update', $b->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        <input type="hidden" name="id" value="{{ $b->id }}">
+
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
+
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="nama_lengkap">Nama Barang</label>
-                                            <input name="nama_barang"
-                                                value="{{ old('nama_barang', $b->nama_barang) }}" type="text"
-                                                class="form-control @error('nama_barang') is-invalid @enderror"
-                                                id="nama_barang">
+                                            <label for="nama_barang">Nama Barang</label>
+                                            <input name="nama_barang" value="{{ old('nama_barang', $b->nama_barang) }}" type="text"
+                                                class="form-control @error('nama_barang') is-invalid @enderror" id="nama_barang">
                                             @error('nama_barang')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -44,51 +43,44 @@
                                         </div>  
 
                                         <div class="form-group">
-                                            <label for="kondisi_baik">Kondisi baik</label>
-                                            <input name="kondisi_baik" value="{{ old('kondisi_baik', $b->kondisi_baik) }}" type="text"
-                                                class="form-control @error('kondisi_baik') is-invalid @enderror" id="kondisi_baik">
-                                            @error('kondisi_baik')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="kondisi_buruk">Kondisi buruk</label>
-                                            <input name="kondisi_buruk" value="{{ old('kondisi_buruk', $b->kondisi_buruk) }}" type="text"
-                                                class="form-control @error('kondisi_buruk') is-invalid @enderror" id="kondisi_buruk">
-                                            @error('kondisi_buruk')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        
-                                        <div class="form-group">
                                             <label for="jumlah_stok">Jumlah Stok</label>
-                                            <input name="jumlah_stok" value="{{ old('jumlah_stok', $b->jumlah_stok) }}" type="text"
+                                            <input name="jumlah_stok" value="{{ old('jumlah_stok', $b->jumlah_stok) }}" type="number"
                                                 class="form-control @error('jumlah_stok') is-invalid @enderror" id="jumlah_stok">
                                             @error('jumlah_stok')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="harga_satuan">Harga Satuan (Rp)</label>
-                                        <input name="harga_satuan" value="{{ old('harga_satuan', $b->harga_satuan) }}" type="number"
-                                            class="form-control @error('harga_satuan') is-invalid @enderror" id="harga_satuan">
-                                        @error('harga_satuan')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="col-md-6">
+
                                         <div class="form-group">
-                                            <label for="satuan">Nomor KTP</label>
-                                            <input name="satuan" value="{{ old('satuan', $b->satuan) }}"
-                                                type="text" class="form-control @error('satuan') is-invalid @enderror"
-                                                id="satuan">
+                                            <label for="lead_time">Lead Time (hari)</label>
+                                            <input name="lead_time" value="{{ old('lead_time', $b->lead_time) }}" type="number"
+                                                class="form-control @error('lead_time') is-invalid @enderror" id="lead_time">
+                                            @error('lead_time')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            <label for="harga_satuan">Harga Satuan (Rp)</label>
+                                            <input name="harga_satuan" value="{{ old('harga_satuan', $b->harga_satuan) }}" type="number"
+                                                class="form-control @error('harga_satuan') is-invalid @enderror" id="harga_satuan">
+                                            @error('harga_satuan')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="satuan">Satuan</label>
+                                            <input name="satuan" value="{{ old('satuan', $b->satuan) }}" type="text"
+                                                class="form-control @error('satuan') is-invalid @enderror" id="satuan">
                                             @error('satuan')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
 
-                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="tanggal_masuk">Tanggal Masuk</label>
                                             <input name="tanggal_masuk" value="{{ old('tanggal_masuk', $b->tanggal_masuk) }}"
@@ -100,26 +92,15 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="tanggal_keluar">Tanggal Keluar</label>
-                                            <input name="tanggal_keluar"
-                                                value="{{ old('tanggal_keluar', $b->tanggal_keluar) }}" type="date"
-                                                class="form-control @error('tempat_lahir') is-invalid @enderror"
-                                                id="tanggal_keluar">
-                                            @error('tanggal_keluar')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group">
-                                          <label for="rak_id">Rak</label>
+                                            <label for="rak_id">Rak</label>
                                             <select name="rak_id" id="rak_id" class="form-control select2 @error('rak_id') is-invalid @enderror">
                                                 <option value="">-- Pilih Rak --</option>
-                                                @foreach($rak as $rak)
-                                                    <option 
-                                                        value="{{ $rak->id }}" 
-                                                        data-kapasitas="{{ $rak->kapasitas }}" 
-                                                        data-terisi="{{ $rak->totalTerisi() }}"
-                                                        {{ old('rak_id', $b->rak_id) == $rak->id ? 'selected' : '' }}>
-                                                        {{ $rak->rak }}
+                                                @foreach($rak as $r)
+                                                    <option value="{{ $r->id }}"
+                                                        data-kapasitas="{{ $r->kapasitas }}"
+                                                        data-terisi="{{ $r->totalTerisi() }}"
+                                                        {{ old('rak_id', $b->rak_id) == $r->id ? 'selected' : '' }}>
+                                                        {{ $r->rak }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -130,10 +111,11 @@
                                         </div>
 
                                     </div>
+
                                 </div>
                             </div>
                             <div class="card-footer text-right">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">Update</button>
                                 <a href="{{ route('admin.barang') }}" class="btn btn-warning">Kembali</a>
                             </div>
                         </div>
@@ -149,30 +131,25 @@
     <script>
         $(document).ready(function () {
             $('.select2').select2();
+
+            const rakSelect = document.getElementById('rak_id');
+            const infoRak = document.getElementById('infoRak');
+
+            function updateInfo() {
+                const selected = rakSelect.options[rakSelect.selectedIndex];
+                const kapasitas = selected.getAttribute('data-kapasitas');
+                const terisi = selected.getAttribute('data-terisi');
+                if (kapasitas && terisi) {
+                    const sisa = kapasitas - terisi;
+                    infoRak.innerText = `Kapasitas: ${kapasitas} | Terisi: ${terisi} | Sisa: ${sisa}`;
+                } else {
+                    infoRak.innerText = '';
+                }
+            }
+
+            rakSelect.addEventListener('change', updateInfo);
+            updateInfo(); // Jalankan saat load
         });
     </script>
-    <script>
-    $(document).ready(function () {
-        const rakSelect = document.getElementById('rak_id');
-        const infoRak = document.getElementById('infoRak');
-
-        function updateInfo() {
-            const selected = rakSelect.options[rakSelect.selectedIndex];
-            const kapasitas = selected.getAttribute('data-kapasitas');
-            const terisi = selected.getAttribute('data-terisi');
-            if (kapasitas && terisi) {
-                const sisa = kapasitas - terisi;
-                infoRak.innerText = `Kapasitas: ${kapasitas} | Terisi: ${terisi} | Sisa: ${sisa}`;
-            } else {
-                infoRak.innerText = '';
-            }
-        }
-
-        rakSelect.addEventListener('change', updateInfo);
-
-        // Tampilkan langsung saat halaman dimuat kalau ada value
-        updateInfo();
-    });
-</script>
 @endpush
 @endsection

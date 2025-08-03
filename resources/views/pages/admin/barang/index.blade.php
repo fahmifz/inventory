@@ -20,9 +20,26 @@
                     <div class="card">
                         <div class="card-body">
                             {{-- Tombol Tambah --}}
-                            <a href="{{ route('admin.tambahbarang') }}" class="btn btn-primary my-4">
-                                <i class="fas fa-plus"></i> Tambah Data Barang
-                            </a>
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                    {{-- Tombol Tambah di kiri --}}
+                     @if (Auth::user()->role === 'admin')
+                    <a href="{{ route('admin.tambahbarang') }}" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Tambah Data Barang
+                    </a>
+                    @endif
+
+                    {{-- Form Pencarian di kanan --}}
+                    <form action="{{ route('admin.barang') }}" method="GET" style="max-width: 300px; width: 100%;">
+                        <div class="input-group">
+                            <input type="text" name="search" class="form-control" placeholder="Cari nama barang..." value="{{ request('search') }}">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit"><i class="fas fa-search">Cari</i></button>
+                                <a href="{{ route('admin.barang') }}" class="btn btn-secondary"><i class="fas fa-sync-alt"></i></a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                            {{-- Tabel Data Barang --}} 
 
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered" id="table-barang">
@@ -33,13 +50,13 @@
                                             <th class="text-center">Stok</th>
                                             <th class="text-center">Harga satuan</th>
                                             <th class="text-center">Kategori</th>
-                                            <th class="text-center">Kondisi Baik</th>
-                                            <th class="text-center">Kondisi Buruk</th>
                                             <th class="text-center">Satuan</th>
                                             <th class="text-center">Tanggal Masuk</th>
-                                            <th class="text-center">Tanggal Keluar</th>
                                             <th class="text-center">Rak</th>
+                                            <th class="text-center">lead-time</th>
+                                            @if (Auth::user()->role === 'admin')
                                             <th class="text-center">Action</th>
+                                            @endif
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -55,12 +72,11 @@
                                                 <td class="text-center">{{ $b->jumlah_stok }}</td>
                                                 <td class="text-center">{{ $b->harga_satuan }}</td>
                                                 <td class="text-center">{{ $b->kategori }}</td>
-                                                <td class="text-center">{{ $b->kondisi_baik }}</td>
-                                                <td class="text-center">{{ $b->kondisi_buruk }}</td>
                                                 <td class="text-center">{{ $b->satuan }}</td>
                                                 <td class="text-center">{{ $b->tanggal_masuk }}</td>
-                                                <td class="text-center">{{ $b->tanggal_keluar ?: '-' }}</td>
                                                 <td class="text-center">{{ $b->rak ? $b->rak->rak : '-' }}</td>
+                                                <td class="text-center">{{ $b->lead_time }}</td>
+                                                @if (Auth::user()->role === 'admin')
                                                 <td class="text-center">
                                                     <a href="{{ route('admin.edit', $b->id) }}" class="btn btn-warning my-2">
                                                         <i class="fas fa-edit">edit</i>
@@ -74,6 +90,7 @@
                                                         </button>
                                                     </form>
                                                 </td>
+                                                @endif
                                             </tr>
                                             @endforeach
                                         @endif

@@ -16,7 +16,7 @@ class AuthController extends Controller
     } 
     public function registersubmit(Request $request) {
       $user = new User();
-      $user->name = $request->name;
+      $user->name     = $request->first_name . ' ' . $request->last_name; // gabung nama
       $user->username = $request->username;
       $user->password = bcrypt($request->password);
       $user->save();
@@ -37,7 +37,7 @@ class AuthController extends Controller
       Auth::login($user); // ini login manual pakai model
       $request->session()->regenerate();
     
-      return redirect()->route('admin.dashboard')->with('success', 'Anda Berhasil Login!!');
+      return redirect()->route('dashboard')->with('success', 'Anda Berhasil Login!!');
   } else {
       return redirect()->route('admin.login')->with('error', 'Email atau password anda salah');
   }

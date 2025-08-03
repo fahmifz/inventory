@@ -12,12 +12,11 @@ return new class extends Migration
             $table->id();
             $table->string('nama_barang');
             $table->string('kategori');
-            $table->integer('kondisi_baik')->default(0);
-            $table->integer('kondisi_buruk')->default(0);
             $table->integer('jumlah_stok')->default(0);
+            $table->integer('harga_satuan')->default(0); // tambahkan harga_satuan jika belum ada
+            $table->integer('lead_time')->default(1); // dalam hari
             $table->string('satuan');
             $table->date('tanggal_masuk');
-            $table->date('tanggal_keluar')->nullable();
             $table->foreignId('rak_id')->constrained('raks')->onDelete('cascade');
             $table->timestamps();
         });

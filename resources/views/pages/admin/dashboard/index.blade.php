@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => 'Admin Dashboard'])
+@extends('layouts.app', ['title' => 'Dashboard'])
 
 @section('content')
     @push('styles')
@@ -12,8 +12,27 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Admin Dashboard</h1>
+                <h1>
+                    @if (Auth::user()->role === 'admin')
+                    Admin
+                    @endif
+                    Dashboard
+                </h1>
             </div>
+            @if (count($notifROP) > 0)
+                <div class="alert alert-warning">
+                    <h5><strong>⚠️ Notifikasi Pemesanan Ulang (ROP)</strong></h5>
+                    <ul class="mb-0">
+                        @foreach ($notifROP as $item)
+                            <li>
+                                Barang <strong>{{ $item['nama_barang'] }}</strong> memiliki stok <strong>{{ $item['stok'] }}</strong>
+                                &mdash; melebihi batas ROP <strong>{{ $item['rop'] }}</strong>. 
+                                <span class="text-danger">Segera lakukan pemesanan ulang!</span>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">
