@@ -59,9 +59,12 @@ Route::group(['middleware' => ['auth']], function (){
     Route::post('/createproses/transaksi', [TransaksiController::class, 'createproses'])->name('save.transaksi');
     Route::delete('/transaksi/{id}', [TransaksiController::class, 'hapus'])->name('delete.transaksi');
     Route::get('/admin/transaksi/detail/{id}', [TransaksiController::class, 'showDetail'])->name('transaksi.detail');
+    
     // Riwayat Pemesanan
     Route::get('/riwayat-pemesanan', [RiwayatPemesananController::class, 'index'])->name('admin.riwayat');
     Route::post('/riwayat-pemesanan/update/{id}', [RiwayatPemesananController::class, 'updateStatus'])->name('admin.riwayat.update');
+    Route::post('/admin/riwayat/delete-multiple', [RiwayatPemesananController::class, 'destroyMultiple'])->name('admin.riwayat.deleteMultiple');
+
 
     // logout
     Route::post('/logout', [AuthController::class, 'logout'])->name('admin.logout');

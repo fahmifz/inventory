@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('barang_id')->constrained('barangs')->onDelete('cascade');
             $table->enum('status', ['pending', 'diproses', 'selesai'])->default('pending');
-            $table->timestamps(); // created_at = kapan direkam
+            $table->timestamps();
         });
     }
 
