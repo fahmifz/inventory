@@ -9,17 +9,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CekAdmin
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && (Auth::user()->role == 'admin' || Auth::user()->roles === 'staff')) {
-          return $next($request); // Hanya admin & staff yang bisa lewat
-    }
-        return redirect()->route('admin.login')->with('gagal', 'Akses ditolak, bukan admin!');
-    
+        if (Auth::check() && in_array(Auth::user()->role, ['admin', 'staff'])) {
+            return $next($request);
+        }
+
+        return redirect()->route('admin.login')
+            ->with('gagal', 'Akses ditolak!');
     }
 }

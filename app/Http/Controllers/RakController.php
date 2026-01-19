@@ -7,20 +7,19 @@ use Illuminate\Http\Request;
 
 class RakController extends Controller
 {
-       public function rak()
-       {
-          $rak = Rak::with('barangs')->get();
-          return view('pages.admin.Rak.index', compact('rak'));
-       }
+    public function rak()
+    {
+        $rak = Rak::with('barangs')->get();
+        return view('pages.admin.Rak.index', compact('rak'));
+    }
 
 
-        public function create()
-        {
-            return view('pages.admin.Rak.create');
-        }
+    public function create()
+    {
+        return view('pages.admin.Rak.create');
+    }
 
-        public function createproses(Request $request) {
-            
+    public function createproses(Request $request) {     
     $request->validate([
         'rak' => 'required',
         'kategori' => 'required',
@@ -38,7 +37,7 @@ class RakController extends Controller
 
     public function edit($id) 
     {
-        $r = Rak::findOrFail($id); // ambil data barang berdasarkan ID
+        $r = Rak::findOrFail($id);
         return view('pages.admin.Rak.edit', compact('r'));
     }
 

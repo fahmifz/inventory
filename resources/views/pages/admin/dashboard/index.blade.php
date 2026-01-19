@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="{{ asset('library/fullcalendar/dist/fullcalendar.min.css') }}">
 @endpush
 
-{{-- 🔔 Modal DITARUH DI LUAR main-content --}}
 @if (count($notifROP) > 0)
     <div class="modal fade" id="notifModal" tabindex="-1" aria-labelledby="notifModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -24,7 +23,6 @@
                             <li class="mb-1">
                                 Barang : <strong>{{ $item['nama_barang'] }}</strong> stok 
                                 <strong>{{ $item['stok'] }}</strong> 
-                                {{-- ( <strong>{{ $item['rop'] }}</strong>) --}}
                             </li>
                         @endforeach
                     </ul>

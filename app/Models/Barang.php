@@ -32,18 +32,20 @@ class Barang extends Model
         return $this->hasMany(Detail_Transaksi::class);
     }
 
-    public function hitungROP()
+    public function hitungROP($hari = 30)
     {
-        $start = Carbon::now()->subDays(30);
+        $leadTime = $this->lead_time ?? 1;
+        $start = Carbon::now()->subDays($hari);
 
-        $total_jual = Detail_Transaksi::where('barang_id', $this->id)
+        $totalJual = Detail_Transaksi::where('barang_id', $this->id)
             ->whereHas('transaksi', function ($q) use ($start) {
                 $q->where('tanggal_transaksi', '>=', $start);
             })
             ->sum('jumlah');
 
-        $rata_rata = $total_jual / 30;
+        $rataHarian = $totalJual / $hari;
 
-        return ceil($rata_rata * $this->lead_time);
+        return ceil($rataHarian * $leadTime);
     }
+
 }

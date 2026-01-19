@@ -21,26 +21,31 @@
                         <div class="card-body">
                             {{-- Tombol Tambah --}}
                             <div class="d-flex justify-content-between align-items-center mb-4">
-                    {{-- Tombol Tambah di kiri --}}
-                     @if (Auth::user()->role === 'admin')
-                    <a href="{{ route('admin.tambahbarang') }}" class="btn btn-primary">
-                        <i class="fas fa-plus"></i> Tambah Data Barang
-                    </a>
-                    @endif
+                            {{-- Tombol Tambah di kiri --}}
+                            @if (Auth::user()->role === 'admin')
+                            <a href="{{ route('admin.tambahbarang') }}" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Tambah Data Barang
+                            </a>
+                            @endif
 
-                    {{-- Form Pencarian di kanan --}}
-                    <form action="{{ route('admin.barang') }}" method="GET" style="max-width: 300px; width: 100%;">
-                        <div class="input-group">
-                            <input type="text" name="search" class="form-control" placeholder="Cari nama barang..." value="{{ request('search') }}">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit"><i class="fas fa-search">Cari</i></button>
-                                <a href="{{ route('admin.barang') }}" class="btn btn-secondary"><i class="fas fa-sync-alt"></i></a>
+                        {{-- Form Pencarian di kanan --}}
+                        <form action="{{ route('admin.barang') }}" method="GET" style="max-width: 300px; width: 100%;">
+                            <div class="input-group">
+                                <input type="text" name="search" class="form-control" placeholder="Cari nama barang..." value="{{ request('search') }}">
+                                
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="submit">
+                                        <i class="fas fa-search">Cari</i>
+                                    </button>
+
+                                    <a href="{{ route('admin.barang') }}" class="btn btn-secondary">
+                                        <i class="fas fa-sync-alt">Reset</i>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
                 </div>
                             {{-- Tabel Data Barang --}} 
-
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered" id="table-barang">
                                     <thead>

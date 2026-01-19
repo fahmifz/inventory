@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Admin;
+// use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,20 +31,35 @@ class AuthController extends Controller
 
     public function login_proses(Request $request)
 {
-  $user = User::where('username', $request->username)->first();
+    $request->validate([
+        'username' => 'required',
+        'password' => 'required',
+    ]);
 
-  if ($user && Hash::check($request->password, $user->password)) {
-      Auth::login($user); // ini login manual pakai model
-      $request->session()->regenerate();
-    
-      return redirect()->route('dashboard')->with('success', 'Anda Berhasil Login!!');
-  } else {
-      return redirect()->route('admin.login')->with('error', 'Email atau password anda salah');
-  }
+    if (Auth::guard('web')->attempt([
+        'username' => $request->username,
+        'password' => $request->password,
+    ])) {
+
+        $request->session()->regenerate();
+
+        return redirect()->route('dashboard')
+            ->with('success', 'Anda Berhasil Login!!');
+    }
+
+    return redirect()->route('admin.login')
+        ->with('error', 'Username atau password salah');
 }
- public function logout() {
-      Auth::logout();
-      return redirect()->route('admin.login');
-  }
+
+ public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('admin.login')->with('message', 'logout');
+    }
+
+
 
 }

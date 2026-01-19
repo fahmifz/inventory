@@ -20,7 +20,7 @@ class TransaksiController extends Controller
 
     public function transaksi()
     {
-        $barangs = Barang::where('jumlah_stok', '>', 0)->get(); // hanya barang dengan stok tersedia
+        $barangs = Barang::where('jumlah_stok', '>', 0)->get(); 
         return view('pages.admin.transaksi.transaksi', compact('barangs'));
     }
 
@@ -40,7 +40,7 @@ class TransaksiController extends Controller
     foreach ($request->barang_id as $index => $barang_id) {
         $barang = Barang::find($barang_id);
         $jumlah = $request->jumlah[$index];
-
+        
         if ($barang->jumlah_stok < $jumlah) {
             return redirect()->back()->with('error', 'Stok barang "' . $barang->nama_barang . '" tidak mencukupi. Stok tersedia: ' . $barang->jumlah_stok);
         }

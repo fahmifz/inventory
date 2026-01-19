@@ -43,7 +43,6 @@ class DashboardController extends Controller
                 ];
             }
         }
-        // dd($notifROP);
         return view('pages.admin.dashboard.index', compact('barang', 'data', 'notifROP'));
     }
 }

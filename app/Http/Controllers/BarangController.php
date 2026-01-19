@@ -10,7 +10,19 @@ class BarangController extends Controller
 {
     public function barang(Request $request)
     {
-        $barang = Barang::with('rak')->get();
+        $search = $request->search;
+
+        $barang = Barang::when($search, function ($query) use ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('nama_barang', 'LIKE', "%$search%")
+                ->orWhere('kategori', 'LIKE', "%$search%")
+                ->orWhere('jumlah_stok', 'LIKE', "%$search%")
+                ->orWhere('harga_satuan', 'LIKE', "%$search%")
+                ->orWhere('satuan', 'LIKE', "%$search%");
+            });
+        })->get();
+
+
         return view('pages.admin.barang.index', compact('barang'));
     }
 
