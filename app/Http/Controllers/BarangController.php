@@ -31,8 +31,6 @@ class BarangController extends Controller
 
     return view('pages.admin.barang.index', compact('barang'));
 }
-
-
     /**
      * FORM TAMBAH BARANG
      */
