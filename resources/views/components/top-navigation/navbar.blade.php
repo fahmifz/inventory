@@ -232,8 +232,9 @@
     <div class="container">
         <ul class="navbar-nav">
             <li class="nav-item {{ $menu == 'profil' ? 'active' : '' }}">
-                <a href="{{ route('user.index') }}" class="nav-link"><i class="fas fa-home"></i><span></span></a>
+                <a href="{{ route('user.index') }}" class="nav-link"><i class="fas fa-home"></i><span>Profil</span></a>
             </li>
+
             <li class="nav-item dropdown {{ $menu == 'guru' || $menu == 'pegawai' ? 'active' : '' }}">
                 <a href="#" data-toggle="dropdown" class="nav-link has-dropdown"><i class="fas fa-layer-group"></i><span>Data</span></a>
                 <ul class="dropdown-menu">
