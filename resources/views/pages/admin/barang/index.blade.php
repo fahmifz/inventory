@@ -22,7 +22,7 @@
                             {{-- Tombol Tambah --}}
                             <div class="d-flex justify-content-between align-items-center mb-4">
                             {{-- Tombol Tambah di kiri --}}
-                            @if (Auth::user()->role === 'admin')
+                            @if (Auth::user()->role == 'admin')
                             <a href="{{ route('admin.tambahbarang') }}" class="btn btn-primary">
                                 <i class="fas fa-plus"></i> Tambah Data Barang
                             </a>
@@ -53,12 +53,16 @@
                                             <th class="text-center">#</th>
                                             <th class="text-center">Nama Barang</th>
                                             <th class="text-center">Stok</th>
+                                            <th class="text-center">ROP</th>
+                                            <th class="text-center">Status Stok</th>
                                             <th class="text-center">Harga satuan</th>
                                             <th class="text-center">Kategori</th>
                                             <th class="text-center">Satuan</th>
                                             <th class="text-center">Tanggal Masuk</th>
                                             <th class="text-center">Rak</th>
+                                            @if (Auth::user()->role === 'admin')
                                             <th class="text-center">lead-time</th>
+                                            @endif
                                             @if (Auth::user()->role === 'admin')
                                             <th class="text-center">Action</th>
                                             @endif
@@ -75,12 +79,24 @@
                                                 <th scope="row">{{ $index + 1 }}</th>
                                                 <td class="text-center">{{ $b->nama_barang }}</td>
                                                 <td class="text-center">{{ $b->jumlah_stok }}</td>
+                                                {{-- ROP --}}
+                                                <td class="text-center">{{ $b->rop }}</td>
+                                                {{-- STATUS --}}
+                                                <td class="text-center">
+                                                    @if($b->status_stok === 'Perlu Restock')
+                                                        <span class="badge badge-danger">Perlu Restock</span>
+                                                    @else
+                                                        <span class="badge badge-success">Aman</span>
+                                                    @endif
+                                                </td>
                                                 <td class="text-center">{{ $b->harga_satuan }}</td>
                                                 <td class="text-center">{{ $b->kategori }}</td>
                                                 <td class="text-center">{{ $b->satuan }}</td>
                                                 <td class="text-center">{{ $b->tanggal_masuk }}</td>
                                                 <td class="text-center">{{ $b->rak ? $b->rak->rak : '-' }}</td>
+                                                @if (Auth::user()->role === 'admin')
                                                 <td class="text-center">{{ $b->lead_time }}</td>
+                                                @endif
                                                 @if (Auth::user()->role === 'admin')
                                                 <td class="text-center">
                                                     <a href="{{ route('admin.edit', $b->id) }}" class="btn btn-warning my-2">
