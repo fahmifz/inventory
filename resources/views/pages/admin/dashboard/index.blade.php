@@ -8,39 +8,47 @@
 @endpush
 
 @if (count($notifROP) > 0)
-    <div class="modal fade" id="notifModal" tabindex="-1" aria-labelledby="notifModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content border-warning shadow-lg">
-                <div class="modal-header bg-warning text-dark">
-                    <h5 class="modal-title font-weight-bold" id="notifModalLabel">⚠️ Stok Menipis</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <ul>
-                        @foreach ($notifROP as $item)
-                            <li class="mb-1">
-                                Barang : <strong>{{ $item['nama_barang'] }}</strong> stok 
-                                <strong>{{ $item['stok'] }}</strong> 
-                            </li>
-                        @endforeach
-                    </ul>
-                    <p class="text-danger font-weight-bold mb-0">
-                        Segera lakukan pemesanan ulang untuk barang di atas!
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <a href="{{ route('admin.riwayat') }}" class="btn btn-warning">
-                        <i class="fas fa-boxes"></i> Pesan Barang
-                    </a>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                </div>
+<div class="modal fade" id="notifModal" tabindex="-1" aria-labelledby="notifModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-warning shadow-lg">
+            <div class="modal-header bg-warning text-dark">
+                <h5 class="modal-title font-weight-bold" id="notifModalLabel">
+                    ⚠️ Notifikasi Reorder Point
+                </h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <ul>
+                    @foreach ($notifROP as $item)
+                        <li class="mb-1">
+                            <strong>{{ $item['nama_barang'] }}</strong><br>
+                            Stok: <strong>{{ $item['stok'] }}</strong> |
+                            ROP: <strong>{{ $item['rop'] }}</strong>
+                        </li>
+                    @endforeach
+                </ul>
+
+                <p class="text-danger font-weight-bold mb-0">
+                    Barang di atas telah mencapai batas Reorder Point.
+                    Segera lakukan pemesanan ulang.
+                </p>
+            </div>
+
+            <div class="modal-footer">
+                <a href="{{ route('admin.riwayat') }}" class="btn btn-warning">
+                    <i class="fas fa-boxes"></i> Kelola Pemesanan
+                </a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Tutup
+                </button>
             </div>
         </div>
     </div>
+</div>
 @endif
-
 <div class="main-content">
     <section class="section">
         <div class="section-header">

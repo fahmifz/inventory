@@ -10,7 +10,6 @@ use Carbon\Carbon;
 class Barang extends Model
 {
     use HasFactory;
-
     protected $fillable = [
         'nama_barang',
         'kategori',
@@ -37,15 +36,20 @@ class Barang extends Model
         $leadTime = $this->lead_time ?? 1;
         $start = Carbon::now()->subDays($hari);
 
-        $totalJual = Detail_Transaksi::where('barang_id', $this->id)
+        $totalJual = $this->detailTransaksis()
             ->whereHas('transaksi', function ($q) use ($start) {
                 $q->where('tanggal_transaksi', '>=', $start);
             })
             ->sum('jumlah');
 
         $rataHarian = $totalJual / $hari;
-
         return ceil($rataHarian * $leadTime);
     }
 
+    public function getStatusStokAttribute()
+    {
+        return $this->jumlah_stok <= $this->hitungROP()
+            ? 'Perlu Restock'
+            : 'Aman';
+    }
 }

@@ -5,7 +5,7 @@
                 <ul class="top-info text-center text-md-left">
                     <li>
                         <i class="fas fa-map-marker-alt"></i>
-                        <p class="info-text">98657 Jl. Pelita taeng no.20, Taeng, Kec. Pallangga, kabupaten Gowa,
+                        <p class="info-text">98657 Jl. Perintis Kemerdekaan,
                             Sulawesi
                             Selatan</p>
                     </li>

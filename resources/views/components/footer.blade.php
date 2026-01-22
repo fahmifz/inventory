@@ -1,6 +1,6 @@
 <footer class="main-footer">
     <div class="footer-left">
-        Copyright &copy; <div class="bullet"></div> RPPH Sulsel
+        &copy; <div class="bullet"></div> UNIVERSITAS DIPA MAKASSAR
         {{-- <a href="https://nauv.al/">
             Muhamad
             Nauval Azhar</a> --}}
