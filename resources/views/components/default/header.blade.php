@@ -16,14 +16,11 @@
                 <div class="d-sm-none d-lg-inline-block">{{Auth::user()->name}} </div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-                    {{-- <a class="far fa-user" href="{{route('admin.barang')}}"></a>  --}}
-                    <a class="far fa-user" href="">Profil</a>
                <div class="dropdown-divider"></div>
                     <a href="#" class="dropdown-item has-icon text-danger"
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="fas fa-sign-out-alt"></i> Logout
                     </a>
-
                     <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
                         @csrf
                     </form>
