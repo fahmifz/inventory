@@ -17,7 +17,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right">
                     {{-- <a class="far fa-user" href="{{route('admin.barang')}}"></a>  --}}
-                    <a class="far fa-user" href="">Profil</a>
+                    <!-- <a class="far fa-user" href="">Profil</a> -->
                <div class="dropdown-divider"></div>
                     <a href="#" class="dropdown-item has-icon text-danger"
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
