@@ -59,7 +59,6 @@ class Barang extends Model
 
         return ceil($averageDaily * $leadTime);
     }
-
     public function getStatusStokAttribute()
     {
         return $this->jumlah_stok <= $this->hitungROP()
