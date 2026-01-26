@@ -18,56 +18,54 @@
 <div class="card-body">
 
 {{-- TANGGAL --}}
-<div class="form-group col-md-4 p-0">
-  <label class="font-weight-bold">Tanggal Transaksi</label>
-  <input type="date" name="tanggal_transaksi" class="form-control" value="{{ date('Y-m-d') }}">
-</div>
+  <div class="form-group col-md-4 p-0">
+    <label class="font-weight-bold">Tanggal Transaksi</label>
+    <input type="date" name="tanggal_transaksi" class="form-control" value="{{ date('Y-m-d') }}">
+  </div>
 
 <hr>
-
-<h6 class="font-weight-bold mb-3">📦 Daftar Barang</h6>
+  <h6 class="font-weight-bold mb-3">📦 Daftar Barang</h6>
 
 <div id="barang-list">
+  {{-- ITEM BARANG --}}
+  <div class="barang-item border rounded p-3 mb-3 bg-light">
+    <div class="form-row align-items-end">
 
-{{-- ITEM BARANG --}}
-<div class="barang-item border rounded p-3 mb-3 bg-light">
-  <div class="form-row align-items-end">
+      <div class="col-md-5">
+        <label>Barang</label>
+        <select name="barang_id[]" class="form-control barang-select">
+          <option value="">-- Pilih Barang --</option>
+          @foreach ($barangs as $barang)
+            <option 
+              value="{{ $barang->id }}"
+              data-harga="{{ $barang->harga_satuan }}"
+              data-stok="{{ $barang->jumlah_stok }}">
+              {{ $barang->nama_barang }}
+            </option>
+          @endforeach
+        </select>
+      </div>
 
-    <div class="col-md-5">
-      <label>Barang</label>
-      <select name="barang_id[]" class="form-control barang-select">
-        <option value="">-- Pilih Barang --</option>
-        @foreach ($barangs as $barang)
-          <option 
-            value="{{ $barang->id }}"
-            data-harga="{{ $barang->harga_satuan }}"
-            data-stok="{{ $barang->jumlah_stok }}">
-            {{ $barang->nama_barang }}
-          </option>
-        @endforeach
-      </select>
+      <div class="col-md-2">
+        <label>Stok</label>
+        <input type="text" class="form-control stok-field text-center font-weight-bold" readonly value="-">
+      </div>
+
+      <div class="col-md-2">
+        <label>Qty</label>
+        <input type="number" name="jumlah[]" class="form-control jumlah-input" min="1" value="1">
+      </div>
+
+      <div class="col-md-2">
+        <label>Subtotal</label>
+        <input type="text" class="form-control subtotal-field text-primary font-weight-bold" readonly value="Rp0">
+      </div>
+
+      <div class="col-md-1">
+        <button type="button" class="btn btn-danger btn-sm remove-barang">✕</button>
+      </div>
+
     </div>
-
-    <div class="col-md-2">
-      <label>Stok</label>
-      <input type="text" class="form-control stok-field text-center font-weight-bold" readonly value="-">
-    </div>
-
-    <div class="col-md-2">
-      <label>Qty</label>
-      <input type="number" name="jumlah[]" class="form-control jumlah-input" min="1" value="1">
-    </div>
-
-    <div class="col-md-2">
-      <label>Subtotal</label>
-      <input type="text" class="form-control subtotal-field text-primary font-weight-bold" readonly value="Rp0">
-    </div>
-
-    <div class="col-md-1">
-      <button type="button" class="btn btn-danger btn-sm remove-barang">✕</button>
-    </div>
-
-  </div>
 </div>
 
 </div>

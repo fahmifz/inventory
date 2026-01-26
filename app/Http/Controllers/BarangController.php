@@ -13,6 +13,7 @@ class BarangController extends Controller
      */
     public function barang(Request $request)
 {
+    
     $search = $request->search;
 
     $barang = Barang::when($search, function ($query) use ($search) {
