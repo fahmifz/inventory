@@ -31,21 +31,34 @@ class Barang extends Model
         return $this->hasMany(Detail_Transaksi::class);
     }
 
-    public function hitungROP($hari = 30)
+    public function hitungROP($hari = 7)
     {
         $leadTime = $this->lead_time ?? 1;
         $start = Carbon::now()->subDays($hari);
 
-        $totalJual = $this->detailTransaksis()
+        // Ambil detail transaksi 7 hari terakhir dan load transaksi
+        $transaksi = $this->detailTransaksis()
             ->whereHas('transaksi', function ($q) use ($start) {
                 $q->where('tanggal_transaksi', '>=', $start);
             })
-            ->sum('jumlah');
+            ->with('transaksi')
+            ->get();
 
-        $rataHarian = $totalJual / $hari;
-        return ceil($rataHarian * $leadTime);
+        // Kelompokkan per tanggal
+        $transaksiPerHari = $transaksi->groupBy(function($item) {
+            return Carbon::parse($item->transaksi->tanggal_transaksi)->format('Y-m-d');
+        });
+
+        // Hitung jumlah per hari
+        $dailySums = [];
+        foreach ($transaksiPerHari as $items) {
+            $dailySums[] = $items->sum('jumlah');
+        }
+
+        $averageDaily = collect($dailySums)->avg();
+
+        return ceil($averageDaily * $leadTime);
     }
-
     public function getStatusStokAttribute()
     {
         return $this->jumlah_stok <= $this->hitungROP()

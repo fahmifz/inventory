@@ -12,9 +12,9 @@ class BarangController extends Controller
      * TAMPIL DATA BARANG + STATUS ROP
      */
     public function barang(Request $request)
-    {
-        // barang dengan fitur pencarian
-        $search = $request->search;
+{
+    
+    $search = $request->search;
 
     $barang = Barang::when($search, function ($query) use ($search) {
         $query->where(function ($q) use ($search) {
