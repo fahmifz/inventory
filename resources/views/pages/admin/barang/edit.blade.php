@@ -34,7 +34,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="kategori">Kategori</label>
+                                            <label for="kat egori">Kategori</label>
                                             <input name="kategori" value="{{ old('kategori', $b->kategori) }}" type="text"
                                                 class="form-control @error('kategori') is-invalid @enderror" id="kategori">
                                             @error('kategori')

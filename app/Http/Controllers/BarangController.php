@@ -20,6 +20,7 @@ class BarangController extends Controller
         $query->where(function ($q) use ($search) {
             $q->where('nama_barang', 'LIKE', "%$search%")
               ->orWhere('kategori', 'LIKE', "%$search%")
+              ->orWhere('harga_satuan', 'LIKE', "%$search%")
               ->orWhere('satuan', 'LIKE', "%$search%");
         });
     })->get();
@@ -69,9 +70,7 @@ class BarangController extends Controller
 
         Barang::create($request->all());
 
-        return redirect()
-            ->route('admin.barang')
-            ->with('success', 'Data barang berhasil ditambahkan.');
+        return redirect()->route('admin.barang')->with('success', 'Data barang berhasil ditambahkan.');
     }
 
     /**
@@ -99,7 +98,7 @@ class BarangController extends Controller
             'tanggal_masuk' => 'required|date',
             'rak_id'        => 'required|exists:raks,id',
         ]);
-
+        
         $barang = Barang::findOrFail($id);
         $rak_baru = Rak::findOrFail($request->rak_id);
 
@@ -127,7 +126,7 @@ class BarangController extends Controller
     /**
      * HAPUS BARANG
      */
-    public function hapus($id)
+    public function destroy($id)
     {
         Barang::findOrFail($id)->delete();
 

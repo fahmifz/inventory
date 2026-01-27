@@ -61,9 +61,7 @@ class DashboardController extends Controller
             }
         }
 
-        return view(
-            'pages.admin.dashboard.index',
-            compact('barang', 'data', 'notifROP')
+        return view('pages.admin.dashboard.index',compact('barang', 'data', 'notifROP')
         );
     }
 }

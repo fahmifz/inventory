@@ -60,9 +60,10 @@
                                             <th class="text-center">Satuan</th>
                                             <th class="text-center">Tanggal Masuk</th>
                                             <th class="text-center">Rak</th>
-                                            @if (Auth::user()->role === 'admin')
+                                            {{-- @if (Auth::user()->role === 'admin') --}}
                                             <th class="text-center">lead-time</th>
-                                            @endif
+                                            <th class="text-center">keterangan</th>
+                                            {{-- @endif --}}
                                             @if (Auth::user()->role === 'admin')
                                             <th class="text-center">Action</th>
                                             @endif
@@ -94,10 +95,10 @@
                                                 <td class="text-center">{{ $b->satuan }}</td>
                                                 <td class="text-center">{{ $b->tanggal_masuk }}</td>
                                                 <td class="text-center">{{ $b->rak ? $b->rak->rak : '-' }}</td>
-                                                @if (Auth::user()->role === 'admin')
+                                                {{-- @if (Auth::user()->role === 'admin') --}}
                                                 <td class="text-center">{{ $b->lead_time }}</td>
-                                                @endif
-                                                @if (Auth::user()->role === 'admin')
+                                                {{-- @endif --}}
+                                                {{-- @if (Auth::user()->role === 'admin') --}}
                                                 <td class="text-center">
                                                     <a href="{{ route('admin.edit', $b->id) }}" class="btn btn-warning my-2">
                                                         <i class="fas fa-edit">edit</i>
@@ -111,7 +112,7 @@
                                                         </button>
                                                     </form>
                                                 </td>
-                                                @endif
+                                                {{-- @endif --}}
                                             </tr>
                                             @endforeach
                                         @endif
