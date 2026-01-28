@@ -60,8 +60,37 @@ class DashboardController extends Controller
                 ];
             }
         }
+        $chartBarang = [];
+        $chartStok   = [];
+        $chartRop    = [];
 
-        return view('pages.admin.dashboard.index',compact('barang', 'data', 'notifROP')
-        );
+        foreach ($barang as $b) {
+
+            // Lead time default 1 hari
+            $leadTime = $b->lead_time ?? 1;
+
+            $totalJual = Detail_Transaksi::where('barang_id', $b->id)
+                ->whereHas('transaksi', function ($q) use ($start) {
+                    $q->where('tanggal_transaksi', '>=', $start);
+                })
+                ->sum('jumlah');
+
+            $rataHarian = $totalJual > 0 ? ($totalJual / $periode) : 1;
+            $rop = ceil($rataHarian * $leadTime);
+
+            $chartBarang[] = $b->nama_barang;
+            $chartStok[]   = $b->jumlah_stok;
+            $chartRop[]    = $rop;
+        }
+
+
+        return view('pages.admin.dashboard.index', compact(
+            'barang',
+            'data',
+            'notifROP',
+            'chartBarang',
+            'chartStok',
+            'chartRop'
+        ));
     }
 }

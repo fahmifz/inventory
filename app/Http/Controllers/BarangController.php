@@ -12,25 +12,29 @@ class BarangController extends Controller
      * TAMPIL DATA BARANG + STATUS ROP
      */
     public function barang(Request $request)
-{
+    {
+        $search = $request->search;
 
-    $search = $request->search;
+        $barang = Barang::when($search, function ($query) use ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('nama_barang', 'LIKE', "%$search%")
+                ->orWhere('kategori', 'LIKE', "%$search%")
+                ->orWhere('harga_satuan', 'LIKE', "%$search%")
+                ->orWhere('satuan', 'LIKE', "%$search%");
+            });
+        })->get();
 
-    $barang = Barang::when($search, function ($query) use ($search) {
-        $query->where(function ($q) use ($search) {
-            $q->where('nama_barang', 'LIKE', "%$search%")
-              ->orWhere('kategori', 'LIKE', "%$search%")
-              ->orWhere('harga_satuan', 'LIKE', "%$search%")
-              ->orWhere('satuan', 'LIKE', "%$search%");
+        foreach ($barang as $b) {
+            $b->rop = $b->hitungROP();
+        }
+
+        $barang = $barang->filter(function ($b) {
+            return $b->jumlah_stok > $b->rop;
         });
-    })->get();
 
-    foreach ($barang as $b) {
-        $b->rop = $b->hitungROP();
+        return view('pages.admin.barang.index', compact('barang'));
     }
 
-    return view('pages.admin.barang.index', compact('barang'));
-}
     /**
      * FORM TAMBAH BARANG
      */
@@ -120,6 +124,49 @@ class BarangController extends Controller
             ->route('admin.barang')
             ->with('success', 'Data barang berhasil diupdate.');
     }
+
+    public function restok(Request $request)
+    {
+        $search = $request->search;
+
+        // Ambil semua barang + search
+        $barang = Barang::when($search, function ($query) use ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('nama_barang', 'LIKE', "%$search%")
+                ->orWhere('kategori', 'LIKE', "%$search%");
+            });
+        })->get();
+
+        // Hitung ROP
+        foreach ($barang as $b) {
+            $b->rop = $b->hitungROP();
+        }
+
+        // FILTER: barang perlu restock
+        $restok = $barang->filter(function ($b) {
+            return $b->jumlah_stok <= $b->rop;
+        });
+
+        return view('pages.admin.barang.restok', compact('restok'));
+    }
+
+    public function prosesRestok(Request $request, $id)
+    {
+        $request->validate([
+            'jumlah_restok' => 'required|integer|min:1'
+        ]);
+
+        $barang = Barang::findOrFail($id);
+
+        $barang->jumlah_stok += $request->jumlah_restok;
+        $barang->save();
+
+        return redirect()
+            ->route('admin.restok')
+            ->with('success', 'Stok berhasil direstok');
+    }
+
+
 
     /**
      * HAPUS BARANG

@@ -31,6 +31,11 @@ class Barang extends Model
         return $this->hasMany(Detail_Transaksi::class);
     }
 
+    public function riwayatPemesananUlang()
+    {
+        return $this->hasMany(RiwayatPemesananUlang::class);
+    }
+
     public function hitungROP($hari = 7)
     {
         $leadTime = $this->lead_time ?? 1;
@@ -59,10 +64,41 @@ class Barang extends Model
 
         return ceil($averageDaily * $leadTime);
     }
+
     public function getStatusStokAttribute()
     {
         return $this->jumlah_stok <= $this->hitungROP()
             ? 'Perlu Restock'
             : 'Aman';
     }
+
+    public function sisaLeadTime()
+    {
+        // ambil pemesanan terakhir yg belum selesai
+        $riwayat = $this->riwayatPemesananUlang()
+            ->whereIn('status', ['pending', 'diproses'])
+            ->latest()
+            ->first();
+
+        // kalau belum pernah pesan ulang
+        if (!$riwayat) {
+            return $this->lead_time;
+        }
+
+        $hariBerjalan = Carbon::parse($riwayat->tanggal_pemesanan)
+            ->diffInDays(Carbon::now());
+
+        $sisa = $this->lead_time - $hariBerjalan;
+
+        return $sisa > 0 ? $sisa : 0;
+    }
+
+    public function getStatusLeadTimeAttribute()
+    {
+        return $this->sisaLeadTime() > 0
+            ? 'Dalam Pengiriman'
+            : 'Selesai';
+    }
+
+
 }

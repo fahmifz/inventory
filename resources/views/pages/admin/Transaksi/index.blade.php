@@ -29,10 +29,10 @@
                                     <th>#</th>
                                     <th>Tanggal Transaksi</th>
                                     <th>Total</th>
-                                    {{-- @if (Auth::user()->role === 'admin') --}}
+                                    @if (Auth::user()->role === 'admin')
                                     <th>Detail</th>
                                     <th>Action</th>
-                                    {{-- @endif --}}
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -41,7 +41,7 @@
                                     <td class="text-center">{{ $index + 1 }}</td>
                                     <td class="text-center">{{ $t->tanggal_transaksi }}</td>
                                     <td class="text-center">Rp {{ number_format($t->total_harga, 0, ',', '.') }}</td>
-                                    {{-- @if (Auth::user()->role === 'admin') --}}
+                                    @if (Auth::user()->role === 'admin')
                                     <td class="text-center">
                                         <button type="button" class="btn btn-info btn-sm btn-detail" data-id="{{ $t->id }}">
                                             Detail
@@ -56,7 +56,7 @@
                                             </button>
                                         </form>
                                     </td>
-                                    {{-- @endif --}}
+                                    @endif
                                 </tr>
                                 @endforeach
                             </tbody>

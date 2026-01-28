@@ -39,6 +39,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/edit/barang/{b}', [BarangController::class, 'edit'])->name('admin.edit');
     Route::put('/barang/update/{id}', [BarangController::class, 'update'])->name('admin.update');
     Route::delete('/barang/{id}', [BarangController::class, 'destroy'])->name('admin.delete');
+    Route::get('/admin/restok', [BarangController::class, 'restok'])->name('admin.restok');
+    Route::post('/admin/restok/{id}', [BarangController::class, 'prosesRestok'])->name('admin.prosesRestok');
+
 
     // ================= RAK =================
     Route::get('/Rak-barang', [RakController::class, 'rak'])->name('admin.rak');
