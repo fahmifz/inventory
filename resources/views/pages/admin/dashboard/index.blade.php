@@ -57,65 +57,96 @@
 
 {{-- ================= MODAL NOTIFIKASI ROP ================= --}}
 @if (count($notifROP) > 0)
+
 <div class="modal fade" id="notifModal" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content border-danger shadow">
 
-            <div class="modal-header bg-danger text-white">
-                <h5 class="modal-title">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    Notifikasi Reorder Point (ROP)
-                </h5>
-                <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
-            </div>
+```
+        <div class="modal-header bg-danger text-white">
+            <h5 class="modal-title">
+                <i class="fas fa-exclamation-triangle"></i>
+                Notifikasi Reorder Point (ROP)
+            </h5>
+            <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+        </div>
 
-            <div class="modal-body">
+        <div class="modal-body">
 
-                <p class="mb-3">
-                    Barang berikut telah mencapai <strong>Reorder Point (ROP)</strong>
-                    dan perlu dilakukan pemesanan ulang:
-                </p>
+            {{-- TOTAL RESTOK --}}
+            <p class="mb-3 text-danger font-weight-bold">
+                Tambahkan {{ $totalRestok }} barang sekarang!
+            </p>
 
-                <table class="table table-bordered table-hover">
-                    <thead class="bg-light text-center">
-                        <tr>
-                            <th>Nama Barang</th>
-                            <th>Nilai ROP</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($notifROP as $item)
-                        <tr class="text-center">
-                            <td>
-                                <strong>{{ $item['nama_barang'] }}</strong>
-                            </td>
-                            <td>
-                                <span class="badge badge-danger px-3 py-2">
-                                    {{ $item['rop'] }}
-                                </span>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+            <p class="mb-2">
+                Barang berikut telah mencapai <strong>Reorder Point (ROP)</strong>
+                dan perlu dilakukan pemesanan ulang:
+            </p>
 
-                <div class="alert alert-warning mt-3 mb-0">
-                    Segera lakukan <strong>pemesanan ulang</strong> untuk mencegah kehabisan stok.
-                </div>
+            <table class="table table-bordered table-hover">
+                <thead class="bg-light text-center">
+                    <tr>
+                        <th>Prioritas</th>
+                        <th>Nama Barang</th>
+                        <th>Stok</th>
+                        <th>ROP</th>
+                        <th>Tambah</th>
+                    </tr>
+                </thead>
 
-            </div>
+                <tbody>
+                    @foreach ($notifROP as $item)
+                    <tr class="text-center">
 
-            <div class="modal-footer">
-                <a href="{{ route('admin.riwayat') }}" class="btn btn-danger">
-                    <i class="fas fa-truck-loading"></i> Proses Pemesanan
-                </a>
-                <button class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <td>
+                            <span class="badge badge-danger">
+                                #{{ $item['rank'] }}
+                            </span>
+                        </td>
+
+                        <td>
+                            <strong>{{ $item['nama_barang'] }}</strong>
+                            <br>
+                            <small class="text-danger font-weight-bold">
+                                Tambahkan {{ $item['tambah'] }} barang
+                            </small>
+                        </td>
+
+                        <td class="text-danger font-weight-bold">
+                            {{ $item['stok'] }}
+                        </td>
+
+                        <td>{{ $item['rop'] }}</td>
+
+                        <td class="font-weight-bold text-danger">
+                            +{{ $item['tambah'] }}
+                        </td>
+
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+            <div class="alert alert-warning mt-3 mb-0">
+                Segera lakukan <strong>pemesanan ulang</strong> untuk mencegah kehabisan stok.
             </div>
 
         </div>
+
+        <div class="modal-footer">
+            <a href="{{ route('admin.riwayat') }}" class="btn btn-danger">
+                <i class="fas fa-truck-loading"></i> Proses Pemesanan
+            </a>
+            <button class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+        </div>
+
     </div>
 </div>
+```
+
+</div>
 @endif
+
 {{-- ================= END MODAL ================= --}}
 
 
