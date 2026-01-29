@@ -27,7 +27,9 @@
                                     <th style="width: 80px">Stok</th>
                                     <th style="width: 80px">ROP</th>
                                     <th style="width: 130px">Status</th>
+                                    @if (Auth::user()->role === 'admin')
                                     <th style="width: 160px">Aksi</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -42,6 +44,7 @@
                                             Perlu Restock
                                         </span>
                                     </td>
+                                    @if (Auth::user()->role === 'admin')
                                     <td>
                                         <form action="{{ route('admin.prosesRestok', $b->id) }}"
                                               method="POST"
@@ -63,6 +66,7 @@
                                             </button>
                                         </form>
                                     </td>
+                                    @endif
                                 </tr>
                                 @empty
                                 <tr>
