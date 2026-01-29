@@ -23,29 +23,46 @@
                     <span>Master Data</span>
                 </a>
                 <ul class="dropdown-menu">
+
                     <li class="{{ request()->routeIs('admin.barang') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.barang') }}">
-                            Data Barang
+                            <i class="fas fa-box"></i>
+                            <span>Data Barang</span>
                         </a>
                     </li>
+
+                    <li class="{{ request()->routeIs('admin.restok') ? 'active' : '' }}">
+                        <a href="{{ route('admin.restok') }}" class="nav-link">
+                            <i class="fas fa-truck-loading"></i>
+                            <span>Restok Barang</span>
+                        </a>
+                    </li>
+
                     <li class="{{ request()->routeIs('admin.rak') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.rak') }}">
-                            Rak Barang
+                            <i class="fas fa-layer-group"></i>
+                            <span>Rak Barang</span>
                         </a>
                     </li>
+
                     <li class="{{ request()->routeIs('base.transaksi') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('base.transaksi') }}">
-                            Laporan Penjualan
+                            <i class="fas fa-chart-line"></i>
+                            <span>Laporan Penjualan</span>
                         </a>
                     </li>
+
                     <li class="{{ request()->routeIs('admin.riwayat') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.riwayat') }}">
-                            Riwayat Pemesanan Ulang
+                            <i class="fas fa-history"></i>
+                            <span>Pemesanan Ulang</span>
                         </a>
                     </li>
+
                 </ul>
             </li>
         </ul>
+
 
         <form action="{{ route('admin.logout') }}" method="POST" class="d-grid p-3">
             @csrf
