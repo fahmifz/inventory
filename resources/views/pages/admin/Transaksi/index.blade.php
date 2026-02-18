@@ -18,7 +18,7 @@
 
         <div class="section-body">
             @if (Auth::user()->role === 'staff')
-            <a href="{{ route('transaksi') }}" class="btn btn-primary mb-3">TAMBAH TRANSAKSI</a>
+            <a href="{{ route('base.transaksi.create') }}" class="btn btn-primary mb-3">TAMBAH TRANSAKSI</a>
             @endif
             <div class="card">
                 <div class="card-body">

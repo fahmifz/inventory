@@ -11,7 +11,7 @@
   <h1>🧾 Transaksi Penjualan</h1>
 </div>
 
-<form action="{{ route('save.transaksi') }}" method="POST">
+<form action="{{ route('base.transaksi.store') }}" method="POST">
 @csrf
 
 <div class="card shadow-sm">
@@ -94,7 +94,7 @@
 </div>
 @endsection
 @push('scripts')
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

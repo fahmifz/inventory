@@ -89,7 +89,7 @@
                                                         <span class="badge badge-success">Aman</span>
                                                     @endif
                                                 </td>
-                                                <td class="text-center">{{ $b->harga_satuan }}</td>
+                                                <td class="text-center">{{ number_format($b->harga_satuan, 0, ',', ',') }}
                                                 <td class="text-center">{{ $b->kategori }}</td>
                                                 <td class="text-center">{{ $b->satuan }}</td>
                                                 <td class="text-center">{{ $b->tanggal_masuk }}</td>

@@ -45,7 +45,7 @@
                         </a>
                     </li>
 
-                    <li class="{{ request()->routeIs('base.transaksi') ? 'active' : '' }}">
+                    <li class="{{ request()->routeIs('transaksi') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('base.transaksi') }}">
                             <i class="fas fa-chart-line"></i>
                             <span>Laporan Penjualan</span>
