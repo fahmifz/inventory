@@ -48,28 +48,33 @@ class Barang extends Model
 
     /*
     |--------------------------------------------------------------------------
-    | ROP CALCULATION
+    | ROP CALCULATION (ROP = D × L)
     |--------------------------------------------------------------------------
     */
 
-    public function hitungROP($hari = 7)
+    public function hitungROP($hari = 30)
     {
+        // Validasi agar tidak terjadi pembagian nol
+        if ($hari <= 0) {
+            $hari = 30;
+        }
+
         $leadTime = $this->lead_time ?? 1;
         $start = Carbon::now()->subDays($hari);
 
-        // total penjualan dalam periode
+        // Total penjualan dalam periode tertentu
         $totalTerjual = $this->detailTransaksis()
             ->whereHas('transaksi', function ($q) use ($start) {
                 $q->whereDate('tanggal_transaksi', '>=', $start);
             })
             ->sum('jumlah');
 
-        // rata-rata per hari
+        // Rata-rata permintaan per hari
         $averageDaily = $totalTerjual > 0
             ? $totalTerjual / $hari
             : 0;
 
-        // ROP final
+        // ROP = D × L
         return (int) ceil($averageDaily * $leadTime);
     }
 
@@ -99,21 +104,32 @@ class Barang extends Model
             ->latest()
             ->first();
 
-        // belum pernah order
+        // Jika belum pernah melakukan pemesanan
         if (!$riwayat) {
-            return $this->lead_time ?? 0;
+            return 0;
         }
+
+        $leadTime = $this->lead_time ?? 0;
 
         $hariBerjalan = Carbon::parse($riwayat->tanggal_pemesanan)
             ->diffInDays(now());
 
-        $sisa = ($this->lead_time ?? 0) - $hariBerjalan;
+        $sisa = $leadTime - $hariBerjalan;
 
         return max($sisa, 0);
     }
 
     public function getStatusLeadTimeAttribute()
     {
+        $riwayat = $this->riwayatPemesananUlang()
+            ->whereIn('status', ['pending', 'diproses'])
+            ->latest()
+            ->first();
+
+        if (!$riwayat) {
+            return 'Belum Ada Pemesanan';
+        }
+
         return $this->sisaLeadTime() > 0
             ? 'Dalam Pengiriman'
             : 'Selesai';
