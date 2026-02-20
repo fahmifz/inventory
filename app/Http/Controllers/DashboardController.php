@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Barang;
 use App\Models\Rak;
-use App\Models\Detail_Transaksi;
-use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -20,40 +18,22 @@ class DashboardController extends Controller
 
         $data = [
             'totalbarang' => $totalbarang,
-            'totalrak' => $totalrak,
+            'totalrak'    => $totalrak,
         ];
 
         // =========================
-        // PERHITUNGAN ROP
+        // NOTIFIKASI ROP
         // =========================
         $notifROP = [];
-
         $totalRestok = 0;
-
-        $periode = 30; // hari
-        $start = Carbon::now()->subDays($periode);
-
         $chartBarang = [];
         $chartStok   = [];
         $chartRop    = [];
 
         foreach ($barang as $b) {
 
-            // Lead time default 1 hari
-            $leadTime = $b->lead_time ?? 1;
-
-            // Total penjualan 30 hari terakhir
-            $totalJual = Detail_Transaksi::where('barang_id', $b->id)
-                ->whereHas('transaksi', function ($q) use ($start) {
-                    $q->where('tanggal_transaksi', '>=', $start);
-                })
-                ->sum('jumlah');
-
-            // Rata-rata harian
-            $rataHarian = $totalJual > 0 ? ($totalJual / $periode) : 1;
-
-            // Hitung ROP
-            $rop = ceil($rataHarian * $leadTime);
+            // 🔥 Gunakan fungsi dari model (agar konsisten)
+            $rop = $b->hitungROP();
 
             // =========================
             // NOTIFIKASI RESTOK
@@ -61,7 +41,7 @@ class DashboardController extends Controller
             if ($b->jumlah_stok <= $rop) {
 
                 $tambah = $rop - $b->jumlah_stok;
-                $totalRestok += $tambah; // 🔥 akumulasi total restok
+                $totalRestok += $tambah;
 
                 $notifROP[] = [
                     'nama_barang' => $b->nama_barang,
@@ -71,7 +51,6 @@ class DashboardController extends Controller
                     'prioritas'   => $tambah
                 ];
             }
-
 
             // =========================
             // DATA CHART
@@ -93,9 +72,6 @@ class DashboardController extends Controller
             $notifROP[$i]['rank'] = $i + 1;
         }
 
-        // =========================
-        // RETURN VIEW
-        // =========================
         return view('pages.admin.dashboard.index', compact(
             'barang',
             'data',
