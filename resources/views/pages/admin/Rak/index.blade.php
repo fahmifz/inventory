@@ -19,9 +19,11 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <a href="{{ route('admin.tambah') }}" class="btn btn-primary my-4">
-                                    <i class="fas fa-plus"></i> Tambah Rak Barang
-                                </a>
+                                @if (Auth::user()->role === 'admin')
+                                    <a href="{{ route('admin.tambah') }}" class="btn btn-primary my-4">
+                                        <i class="fas fa-plus"></i> Tambah Rak Barang
+                                    </a>
+                                @endif
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered" id="table-rak">
                                         <thead>

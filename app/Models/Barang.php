@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Detail_Transaksi;
 use Carbon\Carbon;
 
 class Barang extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'nama_barang',
         'kategori',
@@ -20,6 +20,16 @@ class Barang extends Model
         'harga_satuan',
         'lead_time',
     ];
+
+    protected $casts = [
+        'tanggal_masuk' => 'date',
+    ];
+
+    /*
+    |--------------------------------------------------------------------------
+    | RELATION
+    |--------------------------------------------------------------------------
+    */
 
     public function rak()
     {
@@ -36,34 +46,39 @@ class Barang extends Model
         return $this->hasMany(RiwayatPemesananUlang::class);
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | ROP CALCULATION
+    |--------------------------------------------------------------------------
+    */
+
     public function hitungROP($hari = 7)
     {
         $leadTime = $this->lead_time ?? 1;
         $start = Carbon::now()->subDays($hari);
 
-        // Ambil detail transaksi 7 hari terakhir dan load transaksi
-        $transaksi = $this->detailTransaksis()
+        // total penjualan dalam periode
+        $totalTerjual = $this->detailTransaksis()
             ->whereHas('transaksi', function ($q) use ($start) {
-                $q->where('tanggal_transaksi', '>=', $start);
+                $q->whereDate('tanggal_transaksi', '>=', $start);
             })
-            ->with('transaksi')
-            ->get();
+            ->sum('jumlah');
 
-        // Kelompokkan per tanggal
-        $transaksiPerHari = $transaksi->groupBy(function($item) {
-            return Carbon::parse($item->transaksi->tanggal_transaksi)->format('Y-m-d');
-        });
+        // rata-rata per hari
+        $averageDaily = $totalTerjual > 0
+            ? $totalTerjual / $hari
+            : 0;
 
-        // Hitung jumlah per hari
-        $dailySums = [];
-        foreach ($transaksiPerHari as $items) {
-            $dailySums[] = $items->sum('jumlah');
-        }
-
-        $averageDaily = collect($dailySums)->avg();
-
-        return ceil($averageDaily * $leadTime);
+        // ROP final
+        return (int) ceil($averageDaily * $leadTime);
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | STATUS STOK
+    |--------------------------------------------------------------------------
+    */
+
     public function getStatusStokAttribute()
     {
         return $this->jumlah_stok <= $this->hitungROP()
@@ -71,25 +86,30 @@ class Barang extends Model
             : 'Aman';
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | SISA LEAD TIME
+    |--------------------------------------------------------------------------
+    */
+
     public function sisaLeadTime()
     {
-        // ambil pemesanan terakhir yg belum selesai
         $riwayat = $this->riwayatPemesananUlang()
             ->whereIn('status', ['pending', 'diproses'])
             ->latest()
             ->first();
 
-        // kalau belum pernah pesan ulang
+        // belum pernah order
         if (!$riwayat) {
-            return $this->lead_time;
+            return $this->lead_time ?? 0;
         }
 
         $hariBerjalan = Carbon::parse($riwayat->tanggal_pemesanan)
-            ->diffInDays(Carbon::now());
+            ->diffInDays(now());
 
-        $sisa = $this->lead_time - $hariBerjalan;
+        $sisa = ($this->lead_time ?? 0) - $hariBerjalan;
 
-        return $sisa > 0 ? $sisa : 0;
+        return max($sisa, 0);
     }
 
     public function getStatusLeadTimeAttribute()
@@ -98,6 +118,4 @@ class Barang extends Model
             ? 'Dalam Pengiriman'
             : 'Selesai';
     }
-
-
 }
