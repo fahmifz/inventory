@@ -30,7 +30,7 @@ class DashboardController extends Controller
 
         $totalRestok = 0;
 
-        $periode = 7; // hari
+        $periode = 30; // hari
         $start = Carbon::now()->subDays($periode);
 
         $chartBarang = [];
