@@ -42,7 +42,6 @@ class DashboardController extends Controller
 
                 $tambah = $rop - $b->jumlah_stok;
                 $totalRestok += $tambah;
-
                 $notifROP[] = [
                     'nama_barang' => $b->nama_barang,
                     'stok'        => $b->jumlah_stok,
