@@ -1,1 +1,1 @@
-<div class="simple-footer">Copyright &copy; RPPH Sulawesi Selatan</div>
+<div class="simple-footer">Copyright &copy; Sulawesi Selatan</div>

@@ -24,7 +24,6 @@
                     <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
                         @csrf
                     </form>
-
             </div>
         </li>
     </ul>

@@ -3,7 +3,7 @@
 @section('content')
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset('library/fullcalendar/dist/fullcalendar.min.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css">
 @endpush
 
 {{-- ================= MODAL NOTIFIKASI ROP ================= --}}
@@ -247,7 +247,7 @@
 
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="{{ asset('library/fullcalendar/dist/fullcalendar.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/locale/id.min.js"></script>
 
 {{-- ================= CHART SCRIPT ================= --}}
@@ -293,9 +293,11 @@ document.addEventListener('DOMContentLoaded', () => {
 @endif
 
 <script>
-$('#calendar').fullCalendar({
-    locale: 'id',
-    height: 300
+$(document).ready(function () {
+    $('#calendar').fullCalendar({
+        locale: 'id',
+        height: 300
+    });
 });
 </script>
 @endpush
