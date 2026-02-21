@@ -16,9 +16,9 @@
     @stack('styles')
 
     <!-- Template CSS -->
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/components.css') }}" />
-    <link rel="stylesheet" href="{{ asset('library/selectric/public/selectric.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/style.css') }}" />
+    <link rel="stylesheet" href="{{ secure_asset('css/components.css') }}" />
+    <link rel="stylesheet" href="{{ secure_asset('library/selectric/public/selectric.css') }}">
 
 </head>
 
