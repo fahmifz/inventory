@@ -21,7 +21,7 @@ class TransaksiController extends Controller
     public function index()
     {
         $barangs = Barang::orderBy('nama_barang')->get();
-        return view('pages.admin.transaksi.index', compact('barangs'));
+        return view('pages.admin.Transaksi.index', compact('barangs'));
     }
 
     // public function laporanBarang()
