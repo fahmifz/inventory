@@ -24,11 +24,11 @@ class TransaksiController extends Controller
         return view('pages.admin.transaksi.index', compact('barangs'));
     }
 
-    public function laporanBarang()
-    {
-        $barangs = Barang::orderBy('nama_barang')->get();
-        return view('pages.admin.transaksi.index', compact('barangs'));
-    }
+    // public function laporanBarang()
+    // {
+    //     $barangs = Barang::orderBy('nama_barang')->get();
+    //     return view('pages.admin.transaksi.index', compact('barangs'));
+    // }
 
     public function detailBarang($id)
     {

@@ -53,7 +53,7 @@ Route::middleware(['auth'])->group(function () {
 
     // ================= TRANSAKSI =================
     Route::get('/data-transaksi', [TransaksiController::class, 'index'])->name('base.transaksi');
-    Route::get('/admin/laporan/barang', [TransaksiController::class, 'laporanBarang'])->name('laporan.barang');
+    // Route::get('/admin/laporan/barang', [TransaksiController::class, 'laporanBarang'])->name('laporan.barang');
     Route::get('/admin/laporan/barang/{id}', [TransaksiController::class, 'detailBarang'])->name('laporan.barang.detail');
     Route::get('/transaksi', [TransaksiController::class, 'transaksi'])->name('base.transaksi.create');
     Route::post('/createproses/transaksi', [TransaksiController::class, 'createproses'])->name('base.transaksi.store');

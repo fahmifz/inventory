@@ -18,7 +18,7 @@
 
     <!-- Favicon
 ================================================== -->
-    <link rel="icon" type="image/png" href="{{ asset('landing/images/fav.png') }}">
+    <link rel="icon" type="image/png" href="{{ secure_asset('landing/images/fav.png') }}">
 
     <!-- CSS
 ================================================== -->
