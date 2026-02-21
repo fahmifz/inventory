@@ -47,7 +47,7 @@
         </div>
     </div>
     <div class="mt-5 text-muted text-center">
-        <a href="{{route('admin.register')}}">Kembali ke beranda</a>
+        <a href="{{route('admin.register')}}">Kembali ke berandaa</a>
     </div>
     <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
 
