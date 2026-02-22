@@ -18,10 +18,10 @@
     @stack('styles')
 
     <!-- Template CSS -->
-    <link rel="stylesheet" href="{{ secure_asset('library/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ secure_asset('library/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ secure_asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{ secure_asset('css/components.css') }}">
+    <link rel="stylesheet" href="{{ asset('library/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('library/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/components.css') }}">
 </head>
 
 <body class="layout-3">
@@ -51,23 +51,23 @@
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="{{ secure_asset('js/stisla.js') }}"></script>
+    <script src="{{ asset('js/stisla.js') }}"></script>
 
     <!-- JS Libraies -->
-    <script src="{{ secure_asset('library/izitoast/dist/js/iziToast.min.js') }}"></script>
-    <script src="{{ secure_asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
-    <script src="{{ secure_asset('library/summernote/dist/summernote-bs4.js') }}"></script>
-    <script src="{{ secure_asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ secure_asset('library/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-    <script src="{{ secure_asset('library/datatables.net-select-bs4/js/select.bootstrap4.min.js') }}"></script>
-    <script src="{{ secure_asset('js/page/modules-datatables.js') }}"></script>
+    <script src="{{ asset('library/izitoast/dist/js/iziToast.min.js') }}"></script>
+    <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('library/summernote/dist/summernote-bs4.js') }}"></script>
+    <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('library/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('library/datatables.net-select-bs4/js/select.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('js/page/modules-datatables.js') }}"></script>
 
     <!-- JS Libraies -->
     @stack('scripts')
 
     <!-- Template JS File -->
-    <script src="{{ secure_asset('js/scripts.js') }}"></script>
-    <script src="{{ secure_asset('js/custom.js') }}"></script>
+    <script src="{{ asset('js/scripts.js') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
     {{-- success store data --}}
     @if (session('message') == 'store')
         <script>
