@@ -19,14 +19,14 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css"
         crossorigin="anonymous" />
 
-    <link rel="stylesheet" href="{{ asset('library/selectric/public/selectric.css') }}">
-    <link rel="stylesheet" href="{{ asset('library/select2/dist/css/select2.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('library/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('library/bootstrap-daterangepicker/daterangepicker.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('library/selectric/public/selectric.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('library/select2/dist/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('library/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('library/bootstrap-daterangepicker/daterangepicker.css') }}">
 
     <!-- Template CSS -->
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/components.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/components.css') }}">
 
     @stack('styles')
 </head>
@@ -70,18 +70,18 @@
 
 
     <!-- Plugin JS -->
-    <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
-    <script src="{{ asset('library/izitoast/dist/js/iziToast.min.js') }}"></script>
-    {{-- <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script> --}}
-    <script src="{{ asset('library/summernote/dist/summernote-bs4.js') }}"></script>
-    <script src="{{ asset('library/select2/dist/js/select2.full.min.js') }}"></script>
-    <script src="{{ asset('library/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}"></script>
-    <script src="{{ asset('library/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+    <script src="{{ secure_asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
+    <script src="{{ secure_asset('library/izitoast/dist/js/iziToast.min.js') }}"></script>
+    {{-- <script src="{{ secure_asset('library/sweetalert/dist/sweetalert.min.js') }}"></script> --}}
+    <script src="{{ secure_asset('library/summernote/dist/summernote-bs4.js') }}"></script>
+    <script src="{{ secure_asset('library/select2/dist/js/select2.full.min.js') }}"></script>
+    <script src="{{ secure_asset('library/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}"></script>
+    <script src="{{ secure_asset('library/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
 
     <!-- Template JS -->
-    <script src="{{ asset('js/stisla.js') }}"></script>
-    <script src="{{ asset('js/scripts.js') }}"></script>
-    <script src="{{ asset('js/custom.js') }}"></script>
+    <script src="{{ secure_asset('js/stisla.js') }}"></script>
+    <script src="{{ secure_asset('js/scripts.js') }}"></script>
+    <script src="{{ secure_asset('js/custom.js') }}"></script>
 
     @stack('scripts')
 

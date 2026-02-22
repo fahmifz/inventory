@@ -16,9 +16,9 @@
     @stack('styles')
 
     <!-- Template CSS -->
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/components.css') }}" />
-    <link rel="stylesheet" href="{{ asset('library/selectric/public/selectric.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/style.css') }}" />
+    <link rel="stylesheet" href="{{ secure_asset('css/components.css') }}" />
+    <link rel="stylesheet" href="{{ secure_asset('library/selectric/public/selectric.css') }}">
 
 </head>
 
@@ -56,9 +56,9 @@
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="{{ asset('js/stisla.js') }}"></script>
-    <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
-    <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
+    <script src="{{ secure_asset('js/stisla.js') }}"></script>
+    <script src="{{ secure_asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
+    <script src="{{ secure_asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
 
     
 
@@ -67,8 +67,8 @@
 
 
     <!-- Template JS File -->
-    <script src="{{ asset('js/scripts.js') }}"></script>
-    <script src="{{ asset('js/custom.js') }}"></script>
+    <script src="{{ secure_asset('js/scripts.js') }}"></script>
+    <script src="{{ secure_asset('js/custom.js') }}"></script>
 
     <!-- Page Specific JS File -->
     @if (session('message') == 'username sudah ada')
