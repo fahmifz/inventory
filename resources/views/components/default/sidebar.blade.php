@@ -62,8 +62,6 @@
                 </ul>
             </li>
         </ul>
-
-
         <form action="{{ route('admin.logout') }}" method="POST" class="d-grid p-3">
             @csrf
             <button type="submit" class="btn btn-danger btn-lg btn-block btn-icon-split">

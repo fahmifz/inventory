@@ -61,8 +61,6 @@
 <div class="modal fade" id="notifModal" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content border-danger shadow">
-
-```
         <div class="modal-header bg-danger text-white">
             <h5 class="modal-title">
                 <i class="fas fa-exclamation-triangle"></i>
@@ -70,9 +68,7 @@
             </h5>
             <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
         </div>
-
         <div class="modal-body">
-
             {{-- TOTAL RESTOK --}}
             <p class="mb-3 text-danger font-weight-bold">
                 Tambahkan {{ $totalRestok }} barang sekarang!
