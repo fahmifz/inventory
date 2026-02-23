@@ -33,7 +33,7 @@
                                         <span 
                                             class="titik-merah"
                                             id="dot-{{ $barang->id }}"
-                                            style="color:red;font-size:18px;margin-left:5px;display:none;">
+                                            style="color:red;font-size:18px;margin-left:5px;">
                                             ●
                                         </span>
                                     </td>

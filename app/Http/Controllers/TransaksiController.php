@@ -26,7 +26,8 @@ class TransaksiController extends Controller
 
     public function laporanBarang()
     {
-        $barangs = Barang::whereHas('detailTransaksis')
+        $barangs = Barang::withCount('detailTransaksis')
+            ->orderByDesc('detail_transaksis_count') // yg baru ditransaksi di atas
             ->orderBy('nama_barang')
             ->get();
 
