@@ -4,7 +4,7 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Barang Perlu Restock</h1>
+            <h1>Barang Restock</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active">Dashboard</div>
                 <div class="breadcrumb-item">Restok Barang</div>
@@ -25,7 +25,7 @@
                                     <th style="width: 40px">#</th>
                                     <th>Nama Barang</th>
                                     <th style="width: 80px">Stok</th>
-                                    <th style="width: 80px">ROP</th>
+                                    <th style="width: 80px">Reorder point</th>
                                     <th style="width: 130px">Status</th>
                                     @if (Auth::user()->role === 'admin')
                                     <th style="width: 160px">Aksi</th>
