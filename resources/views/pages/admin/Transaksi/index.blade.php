@@ -28,7 +28,15 @@
                                 @foreach($barangs as $index => $barang)
                                 <tr>
                                     <td class="text-center">{{ $index + 1 }}</td>
-                                    <td>{{ $barang->nama_barang }}</td>
+                                    <td>
+                                    {{ $barang->nama_barang }}
+                                        <span 
+                                            class="titik-merah"
+                                            id="dot-{{ $barang->id }}"
+                                            style="color:red;font-size:18px;margin-left:5px;display:none;">
+                                            ●
+                                        </span>
+                                    </td>
                                     <td class="text-right">
                                         Rp {{ number_format($barang->harga_satuan, 0, ',', '.') }}
                                     </td>
@@ -41,7 +49,7 @@
                                     </td>
                                 </tr>
                                 @endforeach
-                            </tbody>
+                             </tbody>
                         </table>
                     </div>
                 </div>
@@ -95,9 +103,28 @@
 <script>
 $(document).ready(function () {
 
+    // tampilkan titik merah jika belum dibuka
+    $('.titik-merah').each(function(){
+
+        let id = $(this).attr('id').replace('dot-','');
+
+        if(!localStorage.getItem("dibaca_"+id)){
+            $(this).show();
+        }
+
+    });
+
+
     $(document).on('click', '.btn-detail-barang', function () {
 
         let barangId = $(this).data('id');
+
+        // tandai sudah dibuka
+        localStorage.setItem("dibaca_"+barangId, "1");
+
+        // hilangkan titik merah
+        $("#dot-"+barangId).hide();
+
 
         $('#detailTableBody').html(
             '<tr><td colspan="3" class="text-center">Memuat...</td></tr>'
