@@ -1,7 +1,16 @@
 @extends('layouts.app', ['title' => 'Laporan Penjualan Barang'])
 
 @section('content')
-
+<style>
+.dot-merah{
+    height:10px;
+    width:10px;
+    background:red;
+    border-radius:50%;
+    display:inline-block;
+    margin-left:5px;
+}
+</style>
 <div class="main-content">
     <section class="section">
         <div class="section-header">
@@ -25,31 +34,34 @@
                             </tr>
                             </thead>
                             <tbody>
-                                @foreach($barangs as $index => $barang)
-                                <tr>
-                                    <td class="text-center">{{ $index + 1 }}</td>
-                                    <td>
+                            @foreach($barangs as $index => $barang)
+                            <tr>
+
+                                <td class="text-center">{{ $index + 1 }}</td>
+
+                                <td>
                                     {{ $barang->nama_barang }}
-                                        <span 
-                                            class="titik-merah"
-                                            id="dot-{{ $barang->id }}"
-                                            style="color:red;font-size:18px;margin-left:5px;">
-                                            ●
-                                        </span>
-                                    </td>
-                                    <td class="text-right">
-                                        Rp {{ number_format($barang->harga_satuan, 0, ',', '.') }}
-                                    </td>
-                                    <td class="text-center">
-                                        <button 
-                                            class="btn btn-info btn-detail-barang"
-                                            data-id="{{ $barang->id }}">
-                                            Detail
-                                        </button>
-                                    </td>
-                                </tr>
-                                @endforeach
-                             </tbody>
+
+                                    <span id="dot-{{ $barang->id }}" class="dot-merah"></span>
+                                </td>
+
+                                <td class="text-right">
+                                    Rp {{ number_format($barang->harga_satuan, 0, ',', '.') }}
+                                </td>
+
+                                <td class="text-center">
+
+                                    <button 
+                                        class="btn btn-info btn-detail-barang"
+                                        data-id="{{ $barang->id }}">
+                                        Detail
+                                    </button>
+
+                                </td>
+
+                            </tr>
+                            @endforeach
+                        </tbody>
                         </table>
                     </div>
                 </div>
@@ -101,15 +113,16 @@
 
 @push('scripts')
 <script>
+
 $(document).ready(function () {
 
-    // tampilkan titik merah jika belum dibuka
-    $('.titik-merah').each(function(){
+    // cek titik merah saat halaman dibuka
+    $(".dot-merah").each(function(){
 
-        let id = $(this).attr('id').replace('dot-','');
+        let id = $(this).attr('id').replace("dot-","");
 
-        if(!localStorage.getItem("dibaca_"+id)){
-            $(this).show();
+        if(localStorage.getItem("dibaca_"+id)){
+            $(this).hide();
         }
 
     });
@@ -119,7 +132,7 @@ $(document).ready(function () {
 
         let barangId = $(this).data('id');
 
-        // tandai sudah dibuka
+        // simpan sudah dibuka
         localStorage.setItem("dibaca_"+barangId, "1");
 
         // hilangkan titik merah
@@ -129,6 +142,7 @@ $(document).ready(function () {
         $('#detailTableBody').html(
             '<tr><td colspan="3" class="text-center">Memuat...</td></tr>'
         );
+
 
         $.ajax({
             url: "/admin/laporan/barang/" + barangId,
@@ -145,36 +159,36 @@ $(document).ready(function () {
                         total += parseInt(item.jumlah);
 
                         html += `
-                            <tr>
-                                <td class="text-center">${index + 1}</td>
-                                <td class="text-center">${item.transaksi.tanggal_transaksi}</td>
-                                <td class="text-center">${item.jumlah}</td>
-                            </tr>
+                        <tr>
+                            <td class="text-center">${index + 1}</td>
+                            <td class="text-center">${item.transaksi.tanggal_transaksi}</td>
+                            <td class="text-center">${item.jumlah}</td>
+                        </tr>
                         `;
                     });
 
                 } else {
 
                     html = `
-                        <tr>
-                            <td colspan="3" class="text-center">
-                                Belum ada penjualan.
-                            </td>
-                        </tr>
+                    <tr>
+                        <td colspan="3" class="text-center">
+                            Belum ada penjualan.
+                        </td>
+                    </tr>
                     `;
                 }
 
                 $('#detailTableBody').html(html);
-                $('#modalDetail').modal('show');
                 $('#totalTerjual').text(total);
-            },
-            error: function () {
-                alert('Gagal mengambil data.');
+                $('#modalDetail').modal('show');
+
             }
+
         });
 
     });
 
 });
+
 </script>
 @endpush
