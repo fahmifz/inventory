@@ -52,7 +52,7 @@ class Barang extends Model
     |--------------------------------------------------------------------------
     */
 
-    public function hitungROP($hari = 7)
+    public function hitungROP($hari = 30)
     {
         // Validasi agar tidak terjadi pembagian nol
         if ($hari <= 0) {
