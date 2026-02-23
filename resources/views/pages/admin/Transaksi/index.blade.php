@@ -17,12 +17,12 @@
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped">
                             <thead class="text-center">
-                                <tr>
-                                    <th>#</th>
-                                    <th>Nama Barang</th>
-                                    <th>Harga Satuan</th>
-                                    <th>Detail</th>
-                                </tr>
+                            <tr>
+                                <th>#</th>
+                                <th>Nama Barang</th>
+                                <th>Harga Satuan</th>
+                                <th>Detail</th>
+                            </tr>
                             </thead>
                             <tbody>
                                 @foreach($barangs as $index => $barang)
@@ -62,18 +62,26 @@
             </div>
             <div class="modal-body">
                 <table class="table table-bordered">
-                    <thead class="text-center">
-                        <tr>
-                            <th>#</th>
-                            <th>Tanggal Transaksi</th>
-                            <th>Jumlah Terjual</th>
-                        </tr>
-                    </thead>
-                    <tbody id="detailTableBody">
-                        <tr>
-                            <td colspan="3" class="text-center">Memuat...</td>
-                        </tr>
-                    </tbody>
+
+                <thead class="text-center">
+                    <tr>
+                        <th>#</th>
+                        <th>Tanggal Transaksi</th>
+                        <th>Jumlah Terjual</th>
+                    </tr>
+                </thead>
+                <tbody id="detailTableBody">
+                    <tr>
+                        <td colspan="3" class="text-center">Memuat...</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="2" class="text-right">Total Terjual</th>
+                        <th class="text-center" id="totalTerjual">0</th>
+                    </tr>
+                </tfoot>
+
                 </table>
             </div>
         </div>
@@ -101,10 +109,13 @@ $(document).ready(function () {
             success: function (response) {
 
                 let html = '';
+                let total = 0;
 
                 if (response.length > 0) {
 
                     response.forEach(function (item, index) {
+
+                        total += parseInt(item.jumlah);
 
                         html += `
                             <tr>
@@ -128,6 +139,7 @@ $(document).ready(function () {
 
                 $('#detailTableBody').html(html);
                 $('#modalDetail').modal('show');
+                $('#totalTerjual').text(total);
             },
             error: function () {
                 alert('Gagal mengambil data.');

@@ -26,7 +26,10 @@ class TransaksiController extends Controller
 
     public function laporanBarang()
     {
-        $barangs = Barang::orderBy('nama_barang')->get();
+        $barangs = Barang::whereHas('detailTransaksis')
+            ->orderBy('nama_barang')
+            ->get();
+
         return view('pages.admin.transaksi.index', compact('barangs'));
     }
 
