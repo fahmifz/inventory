@@ -25,7 +25,7 @@
                                     <th style="width: 40px">#</th>
                                     <th>Nama Barang</th>
                                     <th style="width: 80px">Stok</th>
-                                    <th style="width: 80px">Reorder point</th>
+                                    <th style="width: 80px">Reorder  point</th>
                                     <th style="width: 130px">Status</th>
                                     @if (Auth::user()->role === 'admin')
                                     <th style="width: 160px">Aksi</th>
