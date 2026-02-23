@@ -116,12 +116,17 @@
 
 $(document).ready(function () {
 
-    // cek titik merah saat halaman dibuka
     $(".dot-merah").each(function(){
 
         let id = $(this).attr('id').replace("dot-","");
+        let waktuTransaksi = $(this).data('waktu');
 
-        if(localStorage.getItem("dibaca_"+id)){
+        let terakhirBuka = localStorage.getItem("dibaca_"+id);
+
+        // tampilkan hanya kalau transaksi lebih baru
+        if(!terakhirBuka || waktuTransaksi > terakhirBuka){
+            $(this).show();
+        }else{
             $(this).hide();
         }
 
@@ -132,10 +137,10 @@ $(document).ready(function () {
 
         let barangId = $(this).data('id');
 
-        // simpan sudah dibuka
-        localStorage.setItem("dibaca_"+barangId, "1");
+        let waktuSekarang = new Date().toISOString();
 
-        // hilangkan titik merah
+        localStorage.setItem("dibaca_"+barangId, waktuSekarang);
+
         $("#dot-"+barangId).hide();
 
 
@@ -152,31 +157,18 @@ $(document).ready(function () {
                 let html = '';
                 let total = 0;
 
-                if (response.length > 0) {
+                response.forEach(function (item, index) {
 
-                    response.forEach(function (item, index) {
+                    total += parseInt(item.jumlah);
 
-                        total += parseInt(item.jumlah);
-
-                        html += `
-                        <tr>
-                            <td class="text-center">${index + 1}</td>
-                            <td class="text-center">${item.transaksi.tanggal_transaksi}</td>
-                            <td class="text-center">${item.jumlah}</td>
-                        </tr>
-                        `;
-                    });
-
-                } else {
-
-                    html = `
+                    html += `
                     <tr>
-                        <td colspan="3" class="text-center">
-                            Belum ada penjualan.
-                        </td>
+                        <td class="text-center">${index + 1}</td>
+                        <td class="text-center">${item.transaksi.tanggal_transaksi}</td>
+                        <td class="text-center">${item.jumlah}</td>
                     </tr>
                     `;
-                }
+                });
 
                 $('#detailTableBody').html(html);
                 $('#totalTerjual').text(total);
