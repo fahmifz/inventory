@@ -1,6 +1,6 @@
 <style>
     .navbar-bg {
-        background-color: #0d6efd !important; /* Warna background atas */
+        background-color: #d20870 !important; /* Warna background atas */
         height: 70px;
         position: fixed;
         top: 0;
@@ -9,7 +9,7 @@
     }
 
     .main-navbar {
-        background-color: #0d6efd !important; /* Warna navbar */
+        background-color: #47db12 !important; /* Warna navbar */
         box-shadow: 0 2px 6px rgba(0,0,0,.1);
     }
 
