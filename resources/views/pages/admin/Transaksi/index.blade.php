@@ -99,13 +99,9 @@ $(document).ready(function () {
             url: "/admin/laporan/barang/" + barangId,
             type: "GET",
             success: function (response) {
-
                 let html = '';
-
                 if (response.length > 0) {
-
                     response.forEach(function (item, index) {
-
                         html += `
                             <tr>
                                 <td class="text-center">${index + 1}</td>
