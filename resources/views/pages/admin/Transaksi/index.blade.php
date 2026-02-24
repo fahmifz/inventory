@@ -65,15 +65,20 @@
                     <thead class="text-center">
                         <tr>
                             <th>#</th>
-                            <th>Tanggal Transaksi</th>
-                            <th>Jumlah Terjual</th>
+                            <th>Tanggal</th>
+                            <th>Harga Satuan</th>
+                            <th>Jumlah</th>
+                            <th>Subtotal</th>
                         </tr>
-                        </thead>
-
+                    </thead>
                         <tfoot>
                         <tr>
-                            <th colspan="2" class="text-right">Total Terjual</th>
-                            <th class="text-center" id="totalTerjual">0</th>
+                            <th colspan="4" class="text-right">
+                                Total Keseluruhan
+                            </th>
+                            <th class="text-center" id="totalKeseluruhan">
+                                0
+                            </th>
                         </tr>
                         </tfoot>
                     <tbody id="detailTableBody">
@@ -106,16 +111,31 @@ $(document).ready(function () {
             url: "/admin/laporan/barang/" + barangId,
             type: "GET",
             success: function (response) {
+
                 let html = '';
-                let total = 0;
+                let totalKeseluruhan = 0;
+
                 if (response.length > 0) {
+
                     response.forEach(function (item, index) {
-                        total += parseInt(item.jumlah);
+
+                        let harga = parseInt(item.barang.harga_satuan);
+                        let jumlah = parseInt(item.jumlah);
+                        let subtotal = harga * jumlah;
+
+                        totalKeseluruhan += subtotal;
+
                         html += `
                             <tr>
                                 <td class="text-center">${index + 1}</td>
                                 <td class="text-center">${item.transaksi.tanggal_transaksi}</td>
-                                <td class="text-center">${item.jumlah}</td>
+                                <td class="text-center">
+                                    Rp ${harga.toLocaleString('id-ID')}
+                                </td>
+                                <td class="text-center">${jumlah}</td>
+                                <td class="text-center">
+                                    Rp ${subtotal.toLocaleString('id-ID')}
+                                </td>
                             </tr>
                         `;
                     });
@@ -123,16 +143,20 @@ $(document).ready(function () {
                 } else {
 
                     html = `
-                        <tr>
-                            <td colspan="3" class="text-center">
-                                Belum ada penjualan.
-                            </td>
-                        </tr>
+                    <tr>
+                        <td colspan="5" class="text-center">
+                            Belum ada penjualan.
+                        </td>
+                    </tr>
                     `;
                 }
 
                 $('#detailTableBody').html(html);
-                $('#totalTerjual').text(total);
+
+                $('#totalKeseluruhan').text(
+                    'Rp ' + totalKeseluruhan.toLocaleString('id-ID')
+                );
+
                 $('#modalDetail').modal('show');
             },
             error: function () {
