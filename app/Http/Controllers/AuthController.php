@@ -15,15 +15,16 @@ class AuthController extends Controller
         return view('pages.admin.auth.register');
     } 
     public function registersubmit(Request $request) {
-      $user = new User();
-      $user->name     = $request->first_name . ' ' . $request->last_name; // gabung nama
-      $user->username = $request->username;
-      $user->password = bcrypt($request->password);
-      $user->save();
-       
-      return redirect()->route('admin.login')->with('success', 'akun anda berhasil dibuat!!');
-      
-  }
+        $user = new User();
+        $user->name     = $request->first_name . ' ' . $request->last_name; // gabung nama
+        $user->username = $request->username;
+        $user->password = bcrypt($request->password);
+        $user->role = 'staff'; // DEFAULT ROLE STAFF
+
+        $user->save();
+        
+        return redirect()->route('admin.login')->with('success', 'akun anda berhasil dibuat!!');
+    }
      public function login()
     {
         return view('pages.admin.auth.login',);
