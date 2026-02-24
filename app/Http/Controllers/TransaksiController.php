@@ -38,9 +38,8 @@ class TransaksiController extends Controller
 
     public function detailBarang($id)
     {
-        $details = Detail_Transaksi::with('transaksi')
+        $details = Detail_Transaksi::with(['transaksi','barang'])
             ->where('barang_id', $id)
-            ->latest()
             ->get();
 
         return response()->json($details);
