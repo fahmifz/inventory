@@ -29,7 +29,7 @@ class TransaksiController extends Controller
 
     public function laporanBarang()
     {
-        $barangs = Barang::whereHas('detailTransaksi')
+        $barangs = Barang::whereHas('detailTransaksis')
             ->orderBy('nama_barang')
             ->get();
 
