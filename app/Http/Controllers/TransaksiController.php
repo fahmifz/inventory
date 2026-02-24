@@ -20,7 +20,7 @@ class TransaksiController extends Controller
 
     public function index()
     {
-        $barangs = Barang::whereHas('detailTransaksi')
+        $barangs = Barang::whereHas('detailTransaksis')
             ->orderBy('nama_barang')
             ->get();
 
