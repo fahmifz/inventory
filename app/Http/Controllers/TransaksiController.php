@@ -50,7 +50,7 @@ class TransaksiController extends Controller
     public function transaksi()
     {
         $barangs = Barang::where('jumlah_stok', '>', 0)->get();
-        return view('pages.admin.transaksi.transaksi', compact('barangs'));
+        return view('pages.admin.Transaksi.transaksi', compact('barangs'));
     }
 
 
