@@ -21,16 +21,12 @@ class TransaksiController extends Controller
     public function index()
     {
         $barangs = Barang::orderBy('nama_barang')->get();
-        return view('pages.admin.Transaksi.index', compact('barangs'));
+        return view('pages.admin.transaksi.index', compact('barangs'));
     }
 
     public function laporanBarang()
     {
-        $barangs = Barang::withCount('detailTransaksis')
-            ->orderByDesc('detail_transaksis_count') // yg baru ditransaksi di atas
-            ->orderBy('nama_barang')
-            ->get();
-
+        $barangs = Barang::orderBy('nama_barang')->get();
         return view('pages.admin.transaksi.index', compact('barangs'));
     }
 
@@ -54,7 +50,7 @@ class TransaksiController extends Controller
     public function transaksi()
     {
         $barangs = Barang::where('jumlah_stok', '>', 0)->get();
-        return view('pages.admin.Transaksi.transaksi', compact('barangs'));
+        return view('pages.admin.transaksi.transaksi', compact('barangs'));
     }
 
 
