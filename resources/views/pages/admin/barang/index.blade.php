@@ -76,7 +76,7 @@
                                         @else
                                             @foreach($barang as $index => $b)
                                             <tr class="text-dark" style="white-space: nowrap;">
-                                                <th scope="row">{{ $index + 1 }}</th>
+                                                <th scope="row">{{ $loop->iteration }}</th>
                                                 <td class="text-center">{{ $b->nama_barang }}</td>
                                                 <td class="text-center">{{ $b->jumlah_stok }}</td>
                                                 {{-- ROP --}}
