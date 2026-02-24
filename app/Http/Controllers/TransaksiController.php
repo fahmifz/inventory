@@ -29,10 +29,8 @@ class TransaksiController extends Controller
 
     public function laporanBarang()
     {
-        $barangs = Barang::select('barangs.*')
-            ->join('detail_transaksis','barangs.id','=','detail_transaksis.barang_id')
-            ->groupBy('barangs.id')
-            ->orderByRaw('MAX(detail_transaksis.created_at) DESC')
+        $barangs = Barang::whereHas('detailTransaksi')
+            ->orderBy('nama_barang')
             ->get();
 
         return view('pages.admin.Transaksi.index', compact('barangs'));

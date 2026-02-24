@@ -68,7 +68,14 @@
                             <th>Tanggal Transaksi</th>
                             <th>Jumlah Terjual</th>
                         </tr>
-                    </thead>
+                        </thead>
+
+                        <tfoot>
+                        <tr>
+                            <th colspan="2" class="text-right">Total Terjual</th>
+                            <th class="text-center" id="totalTerjual">0</th>
+                        </tr>
+                        </tfoot>
                     <tbody id="detailTableBody">
                         <tr>
                             <td colspan="3" class="text-center">Memuat...</td>
@@ -100,8 +107,10 @@ $(document).ready(function () {
             type: "GET",
             success: function (response) {
                 let html = '';
+                let total = 0;
                 if (response.length > 0) {
                     response.forEach(function (item, index) {
+                        total += parseInt(item.jumlah);
                         html += `
                             <tr>
                                 <td class="text-center">${index + 1}</td>
@@ -123,6 +132,7 @@ $(document).ready(function () {
                 }
 
                 $('#detailTableBody').html(html);
+                $('#totalTerjual').text(total);
                 $('#modalDetail').modal('show');
             },
             error: function () {
