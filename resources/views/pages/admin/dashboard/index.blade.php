@@ -151,7 +151,13 @@
 
 {{-- ================= HEADER ================= --}}
 <div class="section-header">
-    <h1>Admin Dashboard</h1>
+    <h1>
+        @if(Auth::user()->role == 'admin')
+            Admin Dashboard
+        @else
+            Staff Dashboard
+        @endif
+    </h1>
 </div>
 
 {{-- ================= STATISTIK ================= --}}
